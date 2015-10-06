@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Day Week Select</title>
+		<link rel="stylesheet" href="weekpicker.css"></script>
+		
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript" src="weekpicker.js"></script>
+		
+		<script type="text/javascript">
+			$(function() {
+				init("#checklist", {"prePopulate" : [0, 1, 2], "isSingle" : false});
+			});
+		</script>
+	</head>
+
+	<body>
+		<ul id="checklist" class="checklist">
+			<li>Su</li>
+			<li>Mo</li>
+			<li>Tu</li>
+			<li>We</li>
+			<li>Th</li>
+			<li>Fr</li>
+			<li>Sa</li>
+		</ul>
+
+		<input type="hidden" name="week_days" value="">
+	</body>
+
+</html>

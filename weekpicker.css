@@ -1,0 +1,47 @@
+::selection {
+  	background: none;
+}
+::-moz-selection {
+  	background: none;
+}
+ul.checklist {
+	border: 2px solid #ccc;
+	border-radius: 30px;
+	display: inline-block;
+	width: auto;
+	padding: 4px
+}
+ul.checklist li {
+	display: inline-block; 
+	padding: 15px 0px;
+	width: 50px;
+	cursor: pointer;
+	text-align: center;
+	color: #0036ff;
+}
+ul.checklist li:not(:first-child) {
+	margin-left: -5px;
+}
+ul.checklist li.active {
+	border-radius: 50px;
+	border: 2px solid #0036ff;
+	color: #000000;
+}
+ul.checklist li.active.right-side {
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	border-left: 0;
+}
+ul.checklist li.active.left-side {
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+	border-right: 0;
+}
+ul.checklist li.active.center-side {
+	border-bottom-right-radius:0;
+	border-top-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	border-right: 0;
+	border-left: 0;
+}
