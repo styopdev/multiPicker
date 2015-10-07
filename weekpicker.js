@@ -1,7 +1,7 @@
 var selector;
 var options;
 
-function init(sel, opt) {
+function initWeekPicker(sel, opt) {
 	options  = opt;
 	selector = sel;
 
@@ -20,7 +20,7 @@ function init(sel, opt) {
 	if (options.prePopulate && options.prePopulate.length) {
 		for (var key in options.prePopulate) {
 			var index = options.prePopulate[key];
-			select.call($(selector + " li:eq(" + index + ")"));
+			select.call( $(selector + " li:eq(" + index + ")"));
 		}
 	}
 
@@ -28,14 +28,17 @@ function init(sel, opt) {
 }
 
 function select() {
+
+	var selectedVal = $(this).attr("data-value") ? $(this).attr("data-value") : $(this).index();
+
 	if (options.isSingle) {
-		removeValue($(selector + " li.active").index());
+		removeValue($(selector + " li.active").attr("data-value") ? $(selector + " li.active").attr("data-value") : $(selector + " li.active").index());
 
 		$(this).siblings(".active").removeClass();
 
 		$(this).addClass("active");
 		
-		addValue($(this).index());
+		addValue(selectedVal);
 		return;
 	}
 
@@ -43,7 +46,7 @@ function select() {
 	if ($(this).hasClass("active")) {
 		$(this).removeClass();
 
-		removeValue($(this).index());
+		removeValue(selectedVal);
 
 		// check previous days
 		if ($(this).prev().hasClass("active")) {
@@ -68,7 +71,7 @@ function select() {
 	} else {
 		$(this).addClass("active");
 
-		addValue($(this).index());
+		addValue(selectedVal);
 
 		// check previous days
 		if ($(this).prev().hasClass("active")) {
@@ -104,8 +107,7 @@ function addValue(val) {
 
 function removeValue(val) {
 	var currValue = $("[name=" + options.inputName + "]").val();
-	var searchText = "," + val;
-	currValue = currValue.replace(searchText, "").replace(val, "")
+	currValue = currValue.replace("," + val, "").replace(val + ",", "")
 
 	$("[name=" + options.inputName + "]").val(currValue);
 }

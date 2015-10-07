@@ -9,23 +9,23 @@
 		
 		<script type="text/javascript">
 			$(function() {
-				init("#checklist", {"prePopulate" : [0, 1, 2], "isSingle" : false});
+				initWeekPicker("#checklist", {"prePopulate" : [0, 1, 2], "isSingle" : false, "inputName" : "days"});
 			});
 		</script>
 	</head>
 
 	<body>
 		<ul id="checklist" class="checklist">
-			<li>Su</li>
-			<li>Mo</li>
-			<li>Tu</li>
-			<li>We</li>
-			<li>Th</li>
-			<li>Fr</li>
-			<li>Sa</li>
+			<li data-value="Su">Su</li>
+			<li data-value="Mo">Mo</li>
+			<li data-value="Tu">Tu</li>
+			<li data-value="We">We</li>
+			<li data-value="Th">Th</li>
+			<li data-value="Fr">Fr</li>
+			<li data-value="Sa">Sa</li>
 		</ul>
 
-		<input type="hidden" name="week_days" value="">
+		<input type="hidden" name="days" value="">
 	</body>
 
 </html>
