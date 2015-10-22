@@ -1,98 +1,85 @@
 var selector;
 var options;
+var lastElem;
+var className = "active";
 
-function initWeekPicker(sel, opt) {
+$.fn.multiPicker = function(opt) {
 	options  = opt;
-	selector = sel;
-
-	if (!options.inputName) {
-		options.inputName = "week_days";
-	}
+	selector = "#" + this.attr("id");
 
 	if (!$("[name='" + options.inputName + "']").length) {
 		throw "Input with name `" + options.inputName + "` does`nt exist";
 	}
 
-	if (options.prePopulate && options.prePopulate.length && options.isSingle) {
-		throw "Can not use `prePopulate` with `isSingle` options";
+	if (options.prePopulate && options.prePopulate.length > 1 && options.isSingle) {
+		throw "Can not use `prePopulate` with `isSingle` option";
+	}
+	
+	if (options.valueSource && !(options.valueSource != "index" || options.valueSource != "text" || options.valueSource.substring(0, 5) == "data-")) {
+		throw "Invalid value source";
 	}
 
-	if (options.prePopulate && options.prePopulate.length) {
-		for (var key in options.prePopulate) {
-			var index = options.prePopulate[key];
-			select.call( $(selector + " li:eq(" + index + ")"));
+	if (options.prePopulate) {
+		if (isArray(options.prePopulate) && options.prePopulate.length) {;
+			for (var key in options.prePopulate) {
+				var searched = options.prePopulate[key];
+				console.log(JSON.stringify(getPrepopulateSelector(searched)))
+				select.call(getPrepopulateSelector(searched));
+			}
+		} else {
+			select.call( getPrepopulateSelector(options.prePopulate));
 		}
 	}
 
 	$(selector + " li").click(select);
+
+	$(selector + " li").mousemove(function(e) {
+		if ((e.which || e.button) && lastElem != e.target) {
+			hover(e);
+			lastElem = e.target;
+		}
+	});
+
+	$(selector + " li").mouseup(finishHover);
+}
+
+function hover(e) {
+	var element = $(e.target);
+	select.call(element, "active");
+}
+
+function finishHover(e) {
+	lastElem = null;
 }
 
 function select() {
-
 	var selectedVal = $(this).attr("data-value") ? $(this).attr("data-value") : $(this).index();
 
 	if (options.isSingle) {
 		removeValue($(selector + " li.active").attr("data-value") ? $(selector + " li.active").attr("data-value") : $(selector + " li.active").index());
 
-		$(this).siblings(".active").removeClass();
+		$(this).siblings("." + className).removeClass();
 
-		$(this).addClass("active");
+		$(this).addClass(className);
 		
 		addValue(selectedVal);
 		return;
 	}
 
 	// unselect case
-	if ($(this).hasClass("active")) {
+	if ($(this).hasClass(className)) {
 		$(this).removeClass();
 
 		removeValue(selectedVal);
 
-		// check previous days
-		if ($(this).prev().hasClass("active")) {
-			if ($(this).prev().hasClass("center-side")) {
-				$(this).prev().removeClass("center-side");
-				$(this).prev().addClass("right-side");
-			} else if ($(this).prev().hasClass("left-side")) {
-				$(this).prev().removeClass("left-side");
-			}
-		}
-
-		// check next days
-		if ($(this).next().hasClass("active")) {
-			if ($(this).next().hasClass("center-side")) {
-				$(this).next().removeClass("center-side");
-				$(this).next().addClass("left-side");
-			} else if ($(this).next().hasClass("right-side")) {
-				$(this).next().removeClass("right-side");
-			}
-		}
 	// select case
 	} else {
-		$(this).addClass("active");
+		$(this).addClass(className);
 
 		addValue(selectedVal);
-
-		// check previous days
-		if ($(this).prev().hasClass("active")) {
-			if ($(this).next().hasClass("active")) {
-				$(this).addClass("center-side");
-			} else {
-				$(this).addClass("right-side");
-			}
-			checkClassRecursive($(this), "left");
-		}
-
-		// check next days
-		if ($(this).next().hasClass("active")) {
-			if ($(this).prev().hasClass("active")) {
-				$(this).addClass("center-side");
-			} else {
-				$(this).addClass("left-side");
-			}
-			checkClassRecursive($(this), "right");
-		}
 	}
+
+	updateClasses($(this), className);
 }
 
 function addValue(val) {
@@ -107,29 +94,105 @@ function addValue(val) {
 
 function removeValue(val) {
 	var currValue = $("[name=" + options.inputName + "]").val();
-	currValue = currValue.replace("," + val, "").replace(val + ",", "")
+	currValue = currValue.replace("," + val, "").replace(val + ",", "").replace(val, "");
 
 	$("[name=" + options.inputName + "]").val(currValue);
 }
 
-function checkClassRecursive(element, side) {
-	if (side == "right") {
-		if (element.next().hasClass("center-side") || element.next().attr("class") == "active") {
-			element.next().addClass("right-side");
-			element.next().removeClass("center-side");
-			checkClassRecursive(element.next(), "right-side");
-		} else if (element.next().hasClass("left-side")) {
-			element.next().removeClass("left-side");
-			element.next().addClass("center-side");
+function updateClasses(item, className) {
+	if ($(item).hasClass(className)) {
+		if ($(item).next().hasClass(className) && $(item).prev().hasClass(className)) {
+			if ($(item).next().next().hasClass(className)) {
+				$(item).next().removeClass();
+				$(item).next().addClass(className + " center-side");
+			} else {
+				$(item).next().removeClass();
+				$(item).next().addClass(className + " right-side");
+			}
+			if ($(item).prev().prev().hasClass(className)) {
+				$(item).prev().removeClass();
+				$(item).prev().addClass(className + " center-side");
+			}
+			else {
+				$(item).prev().removeClass();
+				$(item).prev().addClass(className + " left-side");	
+			}
+			$(item).removeClass();
+			$(item).addClass("active center-side");
+		} else if ($(item).next().hasClass(className) && !$(item).prev().hasClass(className)) {
+			if ($(item).next().next().hasClass(className)) {
+				$(item).next().removeClass();
+				$(item).next().addClass(className + " center-side");
+			} else {
+				$(item).next().removeClass();
+				$(item).next().addClass(className + " right-side");
+			}
+			$(item).removeClass();
+			$(item).addClass("active left-side");
+		} else if (!$(item).next().hasClass(className) && $(item).prev().hasClass(className)) {
+			if ($(item).prev().prev().hasClass(className)) {
+				$(item).prev().removeClass();
+				$(item).prev().addClass(className + " center-side");
+			}
+			else {
+				$(item).prev().removeClass();
+				$(item).prev().addClass(className + " left-side");	
+			}
+			$(item).removeClass();
+			$(item).addClass(className + " right-side");
 		}
-	} else if (side == "left") {
-		if (element.prev().hasClass("center-side") || element.prev().attr("class") == "active") {
-			element.prev().addClass("left-side");
-			element.prev().removeClass("center-side");
-			checkClassRecursive(element.prev(), "left-side");
-		} else if (element.prev().hasClass("right-side")) {
-			element.prev().removeClass("right-side");
-			element.prev().addClass("center-side");
+	} else {
+		if ($(item).next().hasClass("right-side")) {
+			$(item).next().removeClass();
+			$(item).next().addClass(className);
+		} 
+		if ($(item).prev().hasClass("left-side")) {
+			$(item).prev().removeClass();
+			$(item).prev().addClass(className);
 		}
+		if ($(item).prev().hasClass("center-side")) {
+			$(item).prev().removeClass();
+			$(item).prev().addClass(className + " right-side");
+		}
+		if ($(item).next().hasClass("center-side")) {
+			$(item).next().removeClass();
+			$(item).next().addClass(className + " left-side");
+		}
+	}
+}
+
+function getPrepopulateSelector(searched) {
+	if (options.valueSource == "index" || !options.valueSource) {
+		return $(selector + " li:eq(" + searched + ")");
+	} else if (options.valueSource.substring(0, 5) == "data-") {
+		return $(selector + " li[" + options.valueSource + "='" + searched + "']");
+	} else if (options.valueSource == "text") {
+		if (isArray(options.prePopulate)) {
+			for (var key in options.prePopulate) {
+				var toReturn;
+				$(selector + " li").each(function(index, item) {
+					if ($(item).html() == options.prePopulate[key]) {
+						toReturn = $(item);
+						return false;
+					}
+				});
+				return toReturn;
+			}
+		} else {
+			var toReturn;
+			$(selector + " li").each(function(index, item) {
+				if ($(item).html() == options.prePopulate) {
+					toReturn = $(item);
+					return false;
+				}
+			});
+			return toReturn;
+		}
+	}
+}
+
+function isArray(obj) {
+	if (Object.prototype.toString.call(obj) === '[object Array]') {
+	   return true;
 	}
 }
