@@ -1,5 +1,5 @@
-# weekPicker
-Week Picker
+# multiPicker
+Multi Picker
 
 Library for days, numbers, or other elements selecting, supports multi selecting(like a checkboxes) or single select(like a radiobuttons)
 
