@@ -11,9 +11,9 @@
 			$(function() {
 				$("#checklist").multiPicker({
 					"inputName"   : "multi-picker",
-					"valueSource" : "index", // text, index, or html attribute, default index
-					"prePopulate" : 0,		 // array or single value
-					"isSingle"	  : false,	 // default false
+					"valueSource" : "text", // text, index, or html attribute, default index
+					"prePopulate" : ["Tu", "We"],	  // array or single value
+					"isSingle"	  : false	 	  // default false
 				});
 			});
 		</script>
@@ -21,13 +21,13 @@
 
 	<body>
 		<ul id="checklist" class="checklist">
-			<li>Su</li>
-			<li>Mo</li>
-			<li>Tu</li>
-			<li>We</li>
-			<li>Th</li>
-			<li>Fr</li>
-			<li>Sa</li>
+			<li data-value="Sunday">Su</li>
+			<li data-value="Monday">Mo</li>
+			<li data-value="Tuesday">Tu</li>
+			<li data-value="Wednesday">We</li>
+			<li data-value="Thursday">Th</li>
+			<li data-value="Friday">Fr</li>
+			<li data-value="Saturday">Sa</li>
 		</ul>
 
 		<input type="hidden" name="multi-picker" value="">
