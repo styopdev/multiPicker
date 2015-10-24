@@ -4,7 +4,9 @@ var multiPicker = {
 	options: {},
 
 	setEvendHandlers: function() {
-		$(multiPicker.selector + " li").click(multiPicker.select);
+		$(multiPicker.selector + " li").click(function(){
+			multiPicker.select.call(this, false);
+		});
 
 		$(multiPicker.selector + " li").mousemove(function(e) {
 			if ((e.which || e.button) && multiPicker.lastElem != e.target) {
@@ -25,7 +27,7 @@ var multiPicker = {
 		multiPicker.lastElem = null;
 	},
 
-	select: function() {
+	select: function(isPrepopulated) {
 		var selectedVal;
 
 		if (multiPicker.options.valueSource == "index") {
@@ -37,7 +39,7 @@ var multiPicker = {
 		}
 
 		if (multiPicker.options.isSingle) {
-			multiPicker.removeValue(selectedVal);
+			multiPicker.clear();
 
 			$(this).siblings("." + multiPicker.options.activeClass).removeClass();
 			$(this).addClass(multiPicker.options.activeClass);
@@ -51,13 +53,20 @@ var multiPicker = {
 
 			multiPicker.removeValue(selectedVal);
 			// select case
+			multiPicker.updateClasses($(this), multiPicker.options.activeClass);
+			if (multiPicker.options.onUnselect && typeof multiPicker.options.onUnselect === "function" && !isPrepopulated) {
+				multiPicker.options.onUnselect(this, selectedVal);
+			}
 		} else {
 			$(this).addClass(multiPicker.options.activeClass);
 
 			multiPicker.addValue(selectedVal);
+			
+			multiPicker.updateClasses($(this), multiPicker.options.activeClass);
+			if (multiPicker.options.onSelect && typeof multiPicker.options.onSelect === "function" && !isPrepopulated) {
+				multiPicker.options.onSelect(this, selectedVal);
+			}
 		}
-
-		multiPicker.updateClasses($(this), multiPicker.options.activeClass);
 	},
 
 	addValue: function(val) {
@@ -75,6 +84,10 @@ var multiPicker = {
 		currValue = currValue.replace("," + val, "").replace(val + ",", "").replace(val, "");
 
 		$("[name=" + multiPicker.options.inputName + "]").val(currValue);
+	},
+
+	clear: function() {
+		$("[name=" + multiPicker.options.inputName + "]").val("");	
 	},
 
 	updateClasses: function(item, className) {
@@ -141,10 +154,10 @@ var multiPicker = {
 		if (multiPicker.isArray(multiPicker.options.prePopulate) && multiPicker.options.prePopulate.length) {;
 			for (var key in multiPicker.options.prePopulate) {
 				var searched = multiPicker.options.prePopulate[key];
-				multiPicker.select.call(multiPicker.getPrepopulateSelector(searched));
+				multiPicker.select.call(multiPicker.getPrepopulateSelector(searched), true);
 			}
 		} else {
-			multiPicker.select.call(multiPicker.getPrepopulateSelector(multiPicker.options.prePopulate));
+			multiPicker.select.call(multiPicker.getPrepopulateSelector(multiPicker.options.prePopulate), true);
 		}
 	},
 
@@ -193,5 +206,9 @@ jQuery.fn.extend({
 		}
 
 		multiPicker.setEvendHandlers();
+
+		if (multiPicker.options.onInit && typeof multiPicker.options.onInit === "function") {
+			multiPicker.options.onInit();
+		}
 	}
 });

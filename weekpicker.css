@@ -46,3 +46,36 @@ ul.checklist li.center-side {
 	border-right: 2px solid transparent;
 	border-left: 2px solid transparent;
 }
+ul.checklist.vertical {
+	width: 50px;
+}
+ul.checklist.vertical li {
+	margin-left: -2px;
+}
+ul.checklist.vertical li:not(:first-child) {
+	margin-top: -7px;
+}
+ul.checklist.vertical li.right-side {
+	border-radius: 50px;
+	border-top-right-radius: 0; 
+	border-top-left-radius: 0; 
+	border-left: 2px solid #0036ff;
+	border-top: 2px solid transparent;
+}
+ul.checklist.vertical li.left-side {
+	border-radius: 50px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-right: 2px solid #0036ff;
+	border-bottom: 2px solid transparent;
+}
+ul.checklist.vertical li.center-side {
+	border-bottom-right-radius:0;
+	border-top-right-radius: 0 ;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0 ;
+	border-top: 2px solid transparent;
+	border-bottom: 2px solid transparent;
+	border-right: 2px solid #0036ff;
+	border-left: 2px solid #0036ff;
+}
