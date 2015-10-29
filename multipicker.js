@@ -20,7 +20,7 @@ var multiPicker = {
 
 	hover: function(e) {
 		var element = $(e.target);
-		multiPicker.select.call(element, "active");
+		multiPicker.select.call(element);
 	},
 
 	finishHover: function(e) {
