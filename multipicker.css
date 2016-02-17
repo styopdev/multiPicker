@@ -5,7 +5,7 @@
   	background: none;
 }
 ul.checklist {
-	border: 2px solid #ccc;
+	border: 1px solid #ccc;
 	border-radius: 30px;
 	display: inline-block;
 	width: auto;

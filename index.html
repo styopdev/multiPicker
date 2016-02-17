@@ -3,41 +3,86 @@
 	<head>
 		<title>Multi Picker</title>
 		<link rel="stylesheet" href="multipicker.css"></script>
-		
+	    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Gudea">
+
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script type="text/javascript" src="multipicker.js"></script>
 		
 		<script type="text/javascript">
 			$(function() {
-				$("#checklist").multiPicker({
-					inputName   : "multi-picker",// default 
-					valueSource : "text", 	  	 // text, index, or html attribute, default index
-					prePopulate : ["Tu"],  // array or single value
-					isSingle	: false,	 	 // default false
+				$("#months").multiPicker({
+					inputName   : "months",   // default
+					prePopulate : "Jan", // array or single value
+					valueSource : "text",
+					isSingle	: true,	 // default false
 					onInit	  	: function() {
-						//
+						//	do something on init
 					},
 					onSelect	: function(item, value) {
-						//
+						//	do something on select
 					},
 					onUnselect  : function(item, value) {
-						//
+						//	do something on unselect
+					}
+				});
+
+				$("#days").multiPicker({
+					inputName   : "days",		// default 
+					valueSource : "data-value", // text, index, or html attribute, default index
+					prePopulate : "Thursday",   // array or single value
+					isSingle	: false,   		// default false
+					onInit	  	: function() {
+						//  do something on init
+					},
+					onSelect	: function(item, value) {
+						//	do something on select
+					},
+					onUnselect  : function(item, value) {
+						//	do something on unselect
 					}
 				});
 			});
 		</script>
 	</head>
 	<body>
-		<ul id="checklist" class="checklist">
-			<li data-value="Sunday">Su</li>
-			<li data-value="Monday">Mo</li>
-			<li data-value="Tuesday">Tu</li>
-			<li data-value="Wednesday">We</li>
-			<li data-value="Thursday">Th</li>
-			<li data-value="Friday">Fr</li>
-			<li data-value="Saturday">Sa</li>
-		</ul>
-
-		<input type="hidden" name="multi-picker" value="">
+		<h1> Multipicker demo </h1>
+		<div>
+			<ul id="days" class="checklist vertical">
+				<li data-value="Sunday">Su</li>
+				<li data-value="Monday">Mo</li>
+				<li data-value="Tuesday">Tu</li>
+				<li data-value="Wednesday">We</li>
+				<li data-value="Thursday">Th</li>
+				<li data-value="Friday">Fr</li>
+				<li data-value="Saturday">Sa</li>
+			</ul>
+			<input type="hidden" name="days">
+		</div>
+		<div>
+			<ul id="months" class="checklist">
+				<li>Jan</li>
+				<li>Feb</li>
+				<li>Mar</li>
+				<li>Apr</li>
+				<li>May</li>
+				<li>June</li>
+				<li>July</li>
+				<li>Aug</li>
+				<li>Sept</li>
+				<li>Oct</li>
+				<li>Nov</li>
+				<li>Dec</li>
+			</ul>
+			<input type="hidden" name="months">
+		</div>
+		<style type="text/css">
+			h1 {
+				text-align: center;
+				font-family: "Gudea";
+			}
+			.checklist li {
+				font-family: "Gudea";
+			}
+		</style>
 	</body>
 </html>

@@ -105,7 +105,7 @@ var MultiPicker = function () {
 				if ($(element).index() < 0)
 					console.warn("Multipicker: prepopulated element doesn`t found `%s`", searched);
 				else
-					this.select.call(index, this, true);
+					this.select.call($(element).index(), this, true);
 			}
 		} else {
 			var element = this.getPrepopulateSelector(this.options.prePopulate);
