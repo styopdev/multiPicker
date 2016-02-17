@@ -28,16 +28,63 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h1>
-<a id="multipicker" class="anchor" href="#multipicker" aria-hidden="true"><span class="octicon octicon-link"></span></a>multiPicker</h1>
+          <h2>
+<a id="multi-picker" class="anchor" href="#multi-picker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multi Picker</h2>
 
-<p>Multi Picker</p>
+<p>Multi picker is jQuery plugin for days, numbers, or other elements selecting, supports multi selecting (like checkboxes) or single element selection (like radiobuttons).</p>
 
-<p>jQuery plugin for days, numbers, or other elements selecting, supports multi selecting(like checkboxes) or single select(like radiobuttons)</p>
+<h4>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to use</h4>
 
-<p><img src="http://content.screencast.com/users/styopdev/folders/Jing/media/a8cf2276-ac80-4dac-b3de-77fbef56fd9d/00000006.png" alt="Slider example"></p>
+<p>1) Load the latest version of jQuery library and plugin's files in the html document.</p>
 
-<p><img src="http://content.screencast.com/users/styopdev/folders/Jing/media/1363ef80-5c52-486a-8866-ab39fb4beec1/00000007.png" alt="Slider example"></p>
+<pre><code>&lt;script src="//code.jquery.com/jquery-latest.min.js"&gt;&lt;/script&gt;
+&lt;script src="multipicker.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="multipicker.css"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>2) The HTML to create a basic date range picker.</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">ul</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>checklist<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>checklist<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">li</span>&gt;Su&lt;/<span class="pl-ent">li</span>&gt;
+  &lt;<span class="pl-ent">li</span>&gt;Mo&lt;/<span class="pl-ent">li</span>&gt;
+  &lt;<span class="pl-ent">li</span>&gt;Tu&lt;/<span class="pl-ent">li</span>&gt;
+  &lt;<span class="pl-ent">li</span>&gt;We&lt;/<span class="pl-ent">li</span>&gt;
+  &lt;<span class="pl-ent">li</span>&gt;Th&lt;/<span class="pl-ent">li</span>&gt;
+  &lt;<span class="pl-ent">li</span>&gt;Fr&lt;/<span class="pl-ent">li</span>&gt;
+  &lt;<span class="pl-ent">li</span>&gt;Sa&lt;/<span class="pl-ent">li</span>&gt;
+&lt;/<span class="pl-ent">ul</span>&gt;
+
+&lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>hidden<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>multi-picker<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>&gt;</pre></div>
+
+<p>3) Initialize the picker plugin.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#checklist<span class="pl-pds">"</span></span>).<span class="pl-en">multiPicker</span>({
+  <span class="pl-c">// input name</span>
+  inputName<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>multi-picker<span class="pl-pds">"</span></span>, 
+  <span class="pl-c">// text, index, or html attribute, default index</span>
+  valueSource<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span>,        
+  <span class="pl-c">// array or single value</span>
+  prePopulate<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">"</span>Tu<span class="pl-pds">"</span></span>],
+  <span class="pl-c">// is selection single </span>
+  isSingle<span class="pl-k">:</span> <span class="pl-c1">false</span>,  
+  <span class="pl-c">// callbacks   </span>
+  <span class="pl-en">onInit</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+    <span class="pl-c">// do something</span>
+  },
+  <span class="pl-en">onSelect</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">item</span>, <span class="pl-smi">value</span>) {
+    <span class="pl-c">// do something</span>
+  },
+  <span class="pl-en">onUnselect</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">item</span>, <span class="pl-smi">value</span>) {
+    <span class="pl-c">// do something</span>
+  }
+});</pre></div>
+
+<p>Default picker <br>
+<img src="http://content.screencast.com/users/styopdev/folders/Jing/media/1363ef80-5c52-486a-8866-ab39fb4beec1/00000007.png" alt="Picker example">  <br>
+Add class .vertical to picker container for vertical picker.  <br>
+Specify isSingle = true option for radiobuttons mode.  <br>
+<img src="http://content.screencast.com/users/styopdev/folders/Jing/media/56ef03a1-2acf-45d4-b4d5-1a6d6d82b798/2016-02-17_2351.png" alt="Picker example"></p>
         </section>
 
         <aside id="sidebar">
