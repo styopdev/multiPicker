@@ -3,14 +3,14 @@
 Multi picker is jQuery plugin for days, numbers, or other elements selecting, supports multi selecting (like checkboxes) or single element selection (like radiobuttons).
 
 #### How to use
-1. Load the latest version of jQuery library and plugin's files in the html document.
+1) Load the latest version of jQuery library and plugin's files in the html document.
 
 ```
 <script src="//code.jquery.com/jquery-latest.min.js"></script>
 <script src="multipicker.js"></script>
 <link rel="stylesheet" href="multipicker.css"></script>
 ```
-2. The HTML to create a basic date range picker.
+2) The HTML to create a basic date range picker.
 
 ```html
 <ul id="checklist" class="checklist">
@@ -25,7 +25,7 @@ Multi picker is jQuery plugin for days, numbers, or other elements selecting, su
 
 <input type="hidden" name="multi-picker" value="">
 ```
-3. Initialize the picker plugin.
+3) Initialize the picker plugin.
 ```javascript
 $("#checklist").multiPicker({
   // input name
@@ -48,11 +48,8 @@ $("#checklist").multiPicker({
   }
 });
 ```
-
-Default picker
-
-![Picker example](http://content.screencast.com/users/styopdev/folders/Jing/media/1363ef80-5c52-486a-8866-ab39fb4beec1/00000007.png)
-
-Add class .vertical to picker container and specify isSingle = true option for vertical radiobuttons like picker.
-
+Default picker <br>
+![Picker example](http://content.screencast.com/users/styopdev/folders/Jing/media/1363ef80-5c52-486a-8866-ab39fb4beec1/00000007.png)  <br>
+Add class .vertical to picker container for vertical picker.  <br>
+Specify isSingle = true option for radiobuttons mode.  <br>
 ![Picker example](http://content.screencast.com/users/styopdev/folders/Jing/media/56ef03a1-2acf-45d4-b4d5-1a6d6d82b798/2016-02-17_2351.png)
