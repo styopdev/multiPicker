@@ -1,11 +1,12 @@
 var MultiPicker = function () {
-	this.options  	 = {
+	this.options   = {
 		valueSource: "index",
 		prePopulate: null
 	};
-	this.lastElem 	 = "";
-	this.input    	 = null;
-	this.selector 	 = null;
+	this.lastElem  = "";
+	this.input     = null;
+	this.selector  = null;
+	this.isPressed = false;
 
 	this.setEvendHandlers = function () {
 		var picker = this;
@@ -14,13 +15,21 @@ var MultiPicker = function () {
 		});
 
 		$(this.selector + " li").mousemove(function (e) {
-			if ((e.which || e.button) && picker.lastElem != e.target) {
+			if ((picker.isPressed) && picker.lastElem != e.target) {
 				picker.hover(e);
 				picker.lastElem = e.target;
 			}
 		});
 
-		$(this.selector + " li").mouseup(this.finishHover);
+		$(this.selector).mousedown(function (e) {
+			picker.isPressed = true;
+		});
+
+		$(this.selector).mouseleave(function (e) {
+			picker.isPressed = false;
+		});
+
+		$(this.selector + " li").mouseup(this.finishHover.bind(this));
 	};
 
 	this.hover = function (e) {
@@ -30,6 +39,7 @@ var MultiPicker = function () {
 
 	this.finishHover = function (e) {
 		this.lastElem = null;
+		this.isPressed = false;
 	};
 
 	//	arguments: element as this, picker, isPrepopulated flag which is true only on init
