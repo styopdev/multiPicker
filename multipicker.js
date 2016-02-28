@@ -1,7 +1,12 @@
 var MultiPicker = function () {
 	this.options   = {
 		valueSource: "index",
-		prePopulate: null
+		prePopulate: null,
+		cssOptions : {
+			vertical  : false,
+			quadratic : false,
+			size	  : "medium"
+		}
 	};
 	this.lastElem  = "";
 	this.input     = null;
@@ -10,26 +15,26 @@ var MultiPicker = function () {
 
 	this.setEvendHandlers = function () {
 		var picker = this;
-		$(this.selector + " li").click(function () {
+		this.items.click(function () {
 			picker.select.call(this, picker, false);
 		});
 
-		$(this.selector + " li").mousemove(function (e) {
+		this.items.mousemove(function (e) {
 			if ((picker.isPressed) && picker.lastElem != e.target) {
 				picker.hover(e);
 				picker.lastElem = e.target;
 			}
 		});
 
-		$(this.selector).mousedown(function (e) {
+		this.selector.mousedown(function (e) {
 			picker.isPressed = true;
 		});
 
-		$(this.selector).mouseleave(function (e) {
+		this.selector.mouseleave(function (e) {
 			picker.isPressed = false;
 		});
 
-		$(this.selector + " li").mouseup(this.finishHover.bind(this));
+		this.items.mouseup(this.finishHover.bind(this));
 	};
 
 	this.hover = function (e) {
@@ -77,7 +82,7 @@ var MultiPicker = function () {
 			$(this).addClass(picker.options.activeClass);
 
 			picker.addValue(selectedVal);
-			
+
 			MultiPicker.updateClasses($(this), picker.options.activeClass);
 			if (picker.options.onSelect && typeof picker.options.onSelect === "function" && !isPrepopulated) {
 				picker.options.onSelect(this, selectedVal);
@@ -128,11 +133,11 @@ var MultiPicker = function () {
 
 	this.getPrepopulateSelector = function (searched) {
 		if (this.options.valueSource == "index" || !this.options.valueSource) {
-			return $(this.selector + " li:eq(" + searched + ")");
+			return this.items.eq(searched);
 		} else if (this.options.valueSource.substring(0, 5) == "data-") {
-			return $(this.selector + " li[" + this.options.valueSource + "='" + searched + "']");
+			return this.selector.find(this.options.selector + "[" + this.options.valueSource + "='" + searched + "']");
 		} else if (this.options.valueSource == "text") {
-			return $(this.selector + " li:contains('" + searched + "')");
+			return this.selector.find(this.options.selector + ":contains('" + searched + "')");
 		}
 	};
 };
@@ -205,14 +210,31 @@ MultiPicker.updateClasses = function (item, className) {
 
 jQuery.fn.extend({
 	multiPicker: function (opt) {
-		// init picker instance
 		var picker = new MultiPicker();
+		// init picker instance
 		picker.options 	= Object.assign(picker.options, opt);
-		picker.selector = "#" + this.attr("id");
-		picker.input 	= $("[name=" + picker.options.inputName + "]");
+		picker.selector = $("#" + this.attr("id"));
+		picker.items 	= picker.selector.find(picker.options.selector);
 
-		if (!picker.input.length) {
-			throw "Input with name `" + picker.options.inputName + "` does`nt exist";
+		picker.selector.addClass("checklist");
+
+		if (picker.options.cssOptions.vertical) {
+			picker.selector.addClass("vertical");
+		}
+
+		if (picker.options.cssOptions.size) {
+			picker.selector.addClass(picker.options.cssOptions.size);
+		}
+
+		if (picker.options.cssOptions.quadratic) {
+			picker.selector.addClass("quadratic");
+		}
+
+		if (!$("[name=" + picker.options.inputName + "]").length) {
+			picker.selector.after("<input type='hidden' name='" + picker.options.inputName + "'>");
+			picker.input = $("[name=" + picker.options.inputName + "]");
+		} else {
+			picker.input = $("[name=" + picker.options.inputName + "]");
 		}
 
 		if (picker.options.prePopulate && MultiPicker.isArray(picker.options.prePopulate) && picker.options.prePopulate.length > 1 && picker.options.isSingle) {
@@ -231,7 +253,7 @@ jQuery.fn.extend({
 			picker.prePopulate();
 		}
 
-		$(picker.selector).attr("ondragstart", 'return false');
+		picker.selector.attr("ondragstart", 'return false');
 		picker.setEvendHandlers();
 
 		if (picker.options.onInit && typeof picker.options.onInit === "function") {

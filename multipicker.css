@@ -4,41 +4,42 @@
 ::-moz-selection {
   	background: none;
 }
-ul.checklist {
-	border: 1px solid #ccc;
+.checklist {
+	border: 2px solid #e8e8e8;
 	border-radius: 30px;
 	display: inline-block;
 	width: auto;
 	padding: 4px
 }
-ul.checklist li {
-	display: inline-block; 
-	padding: 15px 0px;
-	width: 50px;
+.checklist > * {
+	display: inline-block;
+	padding: 10px 0px;
+	width: 38px;
 	cursor: pointer;
 	text-align: center;
 	color: #0036ff;
 	border: 2px solid transparent;
+	font-size: 14px;
 }
-ul.checklist li:not(:first-child) {
+.checklist > *:not(:first-child) {
 	margin-left: -7px;
 }
-ul.checklist li.active {
+.checklist > .active {
 	border-radius: 50px;
 	border: 2px solid #0036ff;
 	color: #000000;
 }
-ul.checklist li.right-side{
+.checklist > .right-side {
 	border-bottom-left-radius: 0;
 	border-top-left-radius: 0;
 	border-left: 2px solid transparent;
 }
-ul.checklist li.left-side {
+.checklist > .left-side {
 	border-bottom-right-radius: 0;
 	border-top-right-radius: 0;
 	border-right: 2px solid transparent;
 }
-ul.checklist li.center-side {
+.checklist > .center-side {
 	border-bottom-right-radius:0;
 	border-top-right-radius: 0;
 	border-bottom-left-radius: 0;
@@ -46,30 +47,31 @@ ul.checklist li.center-side {
 	border-right: 2px solid transparent;
 	border-left: 2px solid transparent;
 }
-ul.checklist.vertical {
-	width: 50px;
+.checklist.vertical {
+	width: 38px;
+	padding: 3px 4px;
 }
-ul.checklist.vertical li {
+.checklist.vertical > * {
 	margin-left: -2px;
 }
-ul.checklist.vertical li:not(:first-child) {
+.checklist.vertical > *:not(:first-child) {
 	margin-top: -7px;
 }
-ul.checklist.vertical li.right-side {
+.checklist.vertical > .right-side {
 	border-radius: 50px;
 	border-top-right-radius: 0; 
 	border-top-left-radius: 0; 
 	border-left: 2px solid #0036ff;
 	border-top: 2px solid transparent;
 }
-ul.checklist.vertical li.left-side {
+.checklist.vertical > .left-side {
 	border-radius: 50px;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
 	border-right: 2px solid #0036ff;
 	border-bottom: 2px solid transparent;
 }
-ul.checklist.vertical li.center-side {
+.checklist.vertical > .center-side {
 	border-bottom-right-radius:0;
 	border-top-right-radius: 0 ;
 	border-bottom-left-radius: 0;
@@ -78,4 +80,41 @@ ul.checklist.vertical li.center-side {
 	border-bottom: 2px solid transparent;
 	border-right: 2px solid #0036ff;
 	border-left: 2px solid #0036ff;
+}
+
+.checklist.small > * {
+	width: 30px;
+	padding: 7px 0;
+	font-size: 12px;
+}
+.checklist.small > .active {
+	border-width: 1px;
+	padding: 8px 1px;
+}
+
+.checklist.vertical.small {
+	width: 30px;
+}
+.checklist.vertical.small {
+	padding: 2px 3px;
+}
+
+.checklist.large > * {
+	width: 45px;
+	padding: 12px 0px;
+	font-size: 16px;
+}
+.checklist.large > .active {
+	border-width: 2px;
+}
+
+.checklist.vertical.large {
+	width: 45px;
+}
+.checklist.vertical.large {
+	padding: 5px 5px;
+}
+
+.checklist.quadratic, .checklist.quadratic > * , .checklist.vertical.quadratic > * {
+	border-radius: 0;
 }
