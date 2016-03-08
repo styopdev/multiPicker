@@ -19,7 +19,7 @@
 	text-align: center;
 	color: #0036ff;
 	border: 2px solid transparent;
-	font-size: 14px;
+	font-size: 13px;
 }
 .checklist > *:not(:first-child) {
 	margin-left: -7px;
@@ -81,40 +81,44 @@
 	border-right: 2px solid #0036ff;
 	border-left: 2px solid #0036ff;
 }
-
 .checklist.small > * {
 	width: 30px;
 	padding: 7px 0;
-	font-size: 12px;
+	font-size: 11px;
 }
 .checklist.small > .active {
 	border-width: 1px;
 	padding: 8px 1px;
 }
-
 .checklist.vertical.small {
 	width: 30px;
 }
 .checklist.vertical.small {
 	padding: 2px 3px;
 }
-
 .checklist.large > * {
 	width: 45px;
 	padding: 12px 0px;
-	font-size: 16px;
+	font-size: 15px;
 }
 .checklist.large > .active {
 	border-width: 2px;
 }
-
 .checklist.vertical.large {
 	width: 45px;
 }
 .checklist.vertical.large {
 	padding: 5px 5px;
 }
-
 .checklist.quadratic, .checklist.quadratic > * , .checklist.vertical.quadratic > * {
 	border-radius: 0;
+}
+.checklist input {
+	display: none;
+}
+.checklist.more-padded-l {
+	padding-left: 11px;
+}
+.checklist.more-padded-t {
+	padding-top: 10px;
 }

@@ -14,7 +14,7 @@
 					selector    : "li",
 					inputName   : "days",
 					valueSource : "data-value", // text, index, or html attribute, default index
-					prePopulate : "Thursday",   // array or single value
+					prePopulate : ["Thursday", "Friday"],   // array or single value
 					isSingle	: false,   		// default false
 					cssOptions : {
 						vertical : true
@@ -39,17 +39,34 @@
 					cssOptions : {
 						quadratic : true,
 						size	  : "small" // small, medium or large, default medium
-					},
-					onInit	  	: function() {
-						//	do something on init
-					},
-					onSelect	: function(item, value) {
-						//	do something on select
-					},
-					onUnselect  : function(item, value) {
-						//	do something on unselect
+					}	
+				});
+
+				$("#clubs").multiPicker({
+					selector    : "radio",
+					prePopulate : "1", // array or single value
+					cssOptions 	: {
+						quadratic : true,
+						size	  : "small" // small, medium or large, default medium
 					}
 				});
+
+				$("#languages").multiPicker({
+					selector	: "checkbox",
+					prePopulate : ["C", "C++"],
+					cssOptions  : {
+						quadratic : true,
+						vertical  : true
+					}
+				}); 
+
+				$("#countries").multiPicker({
+					selector	: "checkbox",
+					prePopulate : ["USA", "Italy"],
+					cssOptions : {
+						size 	  : "large"
+					}
+				}); 
 			});
 		</script>
 	</head>
@@ -81,6 +98,45 @@
 				<span>Oct</span>
 				<span>Nov</span>
 				<span>Dec</span>
+			</div>
+		</div>
+		<br>
+		<div>
+			<div id="clubs">
+				<label for="first-item">1</label>
+				<input id="first-item" type="radio" name="club" value="0">
+				<label for="second-item">2</label>
+				<input id="second-item" type="radio" name="club" value="1">
+				<label for="third-item">3</label>
+				<input id="third-item" type="radio" name="club" value="2">
+				<label for="fourth-item">4</label>
+				<input id="fourth-item"type="radio" name="club" value="3">
+				<label for="fifth-item">5</label>
+				<input id="fifth-item" type="radio" name="club" value="4">
+			</div>
+		</div>
+		<br>
+		<div>
+			<div id="languages">
+				<input type="checkbox" name="lang" value="C">
+				<input type="checkbox" name="lang" value="JS">
+				<input type="checkbox" name="lang" value="Swift">
+				<input type="checkbox" name="lang" value="Java">
+				<input type="checkbox" name="lag" value="C#">
+				<input type="checkbox" name="lang" value="C++">
+				<input type="checkbox" name="lang" value="PHP">
+			</div>
+		</div>
+		<br>
+		<div>
+			<div id="countries">
+				<input type="checkbox" name="uk" value="UK">
+				<input type="checkbox" name="iran" value="Iran">
+				<input type="checkbox" name="china" value="China">
+				<input type="checkbox" name="usa" value="USA">
+				<input type="checkbox" name="italy" value="Italy">
+				<input type="checkbox" name="japan" value="Japan">
+				<input type="checkbox" name="rf" value="RF">
 			</div>
 		</div>
 		<style type="text/css">

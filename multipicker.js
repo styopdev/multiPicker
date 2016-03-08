@@ -1,5 +1,6 @@
 var MultiPicker = function () {
 	this.options   = {
+		activeClass: "active",
 		valueSource: "index",
 		prePopulate: null,
 		cssOptions : {
@@ -8,10 +9,11 @@ var MultiPicker = function () {
 			size	  : "medium"
 		}
 	};
-	this.lastElem  = "";
+	this.type      = "inline";
 	this.input     = null;
 	this.selector  = null;
 	this.isPressed = false;
+	this.lastElem  = "";
 
 	this.setEvendHandlers = function () {
 		var picker = this;
@@ -20,7 +22,7 @@ var MultiPicker = function () {
 		});
 
 		this.items.mousemove(function (e) {
-			if ((picker.isPressed) && picker.lastElem != e.target) {
+			if ((picker.isPressed) && picker.lastElem !== e.target) {
 				picker.hover(e);
 				picker.lastElem = e.target;
 			}
@@ -51,12 +53,14 @@ var MultiPicker = function () {
 	this.select = function (picker, isPrepopulated) {
 		var selectedVal;
 
-		if (picker.options.valueSource == "index") {
+		if (picker.options.valueSource === "index") {
 			selectedVal = $(this).index();
-		} else if (picker.options.valueSource.substring(0, 5) == "data-") {
+		} else if (picker.options.valueSource.substring(0, 5) === "data-") {
 			selectedVal = $(this).attr(picker.options.valueSource);
-		} else {
+		} else if (picker.options.valueSource === "text") {
 			selectedVal = $(this).text();
+		} else {
+			selectedVal = $(this).val();
 		}
 
 		if (picker.options.isSingle) {
@@ -65,14 +69,14 @@ var MultiPicker = function () {
 			$(this).siblings("." + picker.options.activeClass).removeClass();
 			$(this).addClass(picker.options.activeClass);
 
-			picker.addValue(selectedVal);
+			picker.addValue(this, selectedVal);
 			return;
 		}
 		if ($(this).hasClass(picker.options.activeClass)) {
 			// unselect case
 			$(this).removeClass();
 
-			picker.removeValue(selectedVal);
+			picker.removeValue(this, selectedVal);
 			MultiPicker.updateClasses($(this), picker.options.activeClass);
 			if (picker.options.onUnselect && typeof picker.options.onUnselect === "function" && !isPrepopulated) {
 				picker.options.onUnselect(this, selectedVal);
@@ -81,7 +85,7 @@ var MultiPicker = function () {
 			// select case
 			$(this).addClass(picker.options.activeClass);
 
-			picker.addValue(selectedVal);
+			picker.addValue(this, selectedVal);
 
 			MultiPicker.updateClasses($(this), picker.options.activeClass);
 			if (picker.options.onSelect && typeof picker.options.onSelect === "function" && !isPrepopulated) {
@@ -90,25 +94,36 @@ var MultiPicker = function () {
 		}
 	};
 
-	this.addValue = function (val) {
-		var currValue = this.input.val();
-		if (currValue) {
-			currValue += ",";
-		}
-		currValue += val;
+	this.addValue = function (el, val) {
+		if (this.type === "inline") {
+			var currValue = this.input.val();
+			if (currValue) {
+				currValue += ",";
+			}
+			currValue += val;
 
-		this.input.val(currValue);
+			this.input.val(currValue);
+		} else {
+			this.selector.find("input[value='" + $(el).attr("data-value") + "']").attr("checked", true);
+		}
 	};
 
-	this.removeValue = function (val) {
-		var currValue = this.input.val();
-		currValue = currValue.replace("," + val, "").replace(val + ",", "").replace(val, "");
+	this.removeValue = function (el, val) {
+		if (this.type === "inline") {
+			var currValue = this.input.val();
+			currValue = currValue.replace("," + val, "").replace(val + ",", "").replace(val, "");
 
-		this.input.val(currValue);
+			this.input.val(currValue);
+		} else {
+			this.selector.find("input[value='" + $(el).attr("data-value") + "']").attr("checked", false);
+		}
 	};
 
 	this.clear = function () {
-		this.input.val("");
+		if (this.type === "inline")
+			this.input.val("");
+		else
+			this.selector.find("input").attr("checked", false);
 	};
 
 	this.prePopulate = function () {
@@ -120,7 +135,7 @@ var MultiPicker = function () {
 				if ($(element).index() < 0)
 					console.warn("Multipicker: prepopulated element doesn`t found `%s`", searched);
 				else
-					this.select.call($(element).index(), this, true);
+					this.select.call(element, this, true);
 			}
 		} else {
 			var element = this.getPrepopulateSelector(this.options.prePopulate);
@@ -132,11 +147,11 @@ var MultiPicker = function () {
 	};
 
 	this.getPrepopulateSelector = function (searched) {
-		if (this.options.valueSource == "index" || !this.options.valueSource) {
+		if (this.options.valueSource === "index" || !this.options.valueSource) {
 			return this.items.eq(searched);
-		} else if (this.options.valueSource.substring(0, 5) == "data-") {
+		} else if (this.options.valueSource.substring(0, 5) === "data-") {
 			return this.selector.find(this.options.selector + "[" + this.options.valueSource + "='" + searched + "']");
-		} else if (this.options.valueSource == "text") {
+		} else if (this.options.valueSource === "text") {
 			return this.selector.find(this.options.selector + ":contains('" + searched + "')");
 		}
 	};
@@ -214,7 +229,43 @@ jQuery.fn.extend({
 		// init picker instance
 		picker.options 	= Object.assign(picker.options, opt);
 		picker.selector = $("#" + this.attr("id"));
-		picker.items 	= picker.selector.find(picker.options.selector);
+
+		if (picker.options.selector === "checkbox" || picker.options.selector === "radio") {
+			// in the case when checkbox / radiobutton used for picker, hide them and append new 
+			// `span` tags for each input, with the same value stored in `data-value` attribute
+			picker.type = picker.options.selector;
+			if (picker.type === "radio")
+				picker.options.isSingle = true;
+
+			// hide all labels inside picker
+			picker.selector.find("label").css("display", "none");
+			$(picker.selector).find("input").each(function (index, item) {
+				var itemValue = $(item).val();
+				// use label text if provided else use input `value` attribute  
+				var labelText = $("label[for='" + $(item).attr("id") + "']").text() || itemValue;
+				picker.selector.append("<span data-value='" + itemValue + "'>" + labelText + "</span>")
+			});
+
+			picker.items = picker.selector.find("span");
+			picker.options.valueSource = "data-value";
+			picker.options.selector = "span";
+
+			if (picker.options.cssOptions.vertical)
+				picker.selector.addClass("more-padded-t");
+			else
+				picker.selector.addClass("more-padded-l");
+		} else {
+			// not chenkbox or radiobuttons used for picker
+			if (picker.type === "inline") {
+				if (!$("[name=" + picker.options.inputName + "]").length) {
+					picker.selector.after("<input type='hidden' name='" + picker.options.inputName + "'>");
+					picker.input = $("[name=" + picker.options.inputName + "]");
+				} else {
+					picker.input = $("[name=" + picker.options.inputName + "]");
+				}
+			}
+			picker.items = picker.selector.find(picker.options.selector);
+		}
 
 		picker.selector.addClass("checklist");
 
@@ -230,23 +281,12 @@ jQuery.fn.extend({
 			picker.selector.addClass("quadratic");
 		}
 
-		if (!$("[name=" + picker.options.inputName + "]").length) {
-			picker.selector.after("<input type='hidden' name='" + picker.options.inputName + "'>");
-			picker.input = $("[name=" + picker.options.inputName + "]");
-		} else {
-			picker.input = $("[name=" + picker.options.inputName + "]");
-		}
-
 		if (picker.options.prePopulate && MultiPicker.isArray(picker.options.prePopulate) && picker.options.prePopulate.length > 1 && picker.options.isSingle) {
 			throw "Can not prePopulate more then 1 item, with `isSingle` true option";
 		}
 
-		if (picker.options.valueSource && !(picker.options.valueSource != "index" || picker.options.valueSource != "text" || picker.options.valueSource.substring(0, 5) == "data-")) {
+		if (picker.options.valueSource && !(picker.options.valueSource !== "index" || picker.options.valueSource !== "text" || picker.options.valueSource.substring(0, 5) === "data-")) {
 			throw "Invalid value source";
-		}
-
-		if (!picker.options.activeClass) {
-			picker.options.activeClass = "active";
 		}
 
 		if (picker.options.prePopulate) {
