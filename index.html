@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Multi Picker</title>
-		<link rel="stylesheet" href="multipicker.css"></script>
+		<link rel="stylesheet" href="multipicker.css">
 	    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Gudea">
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -10,13 +10,17 @@
 		
 		<script type="text/javascript">
 			$(function() {
-				$("#months").multiPicker({
-					inputName   : "months",   // default
-					prePopulate : "Jan", // array or single value
-					valueSource : "text",
-					isSingle	: true,	 // default false
+				$("#days").multiPicker({
+					selector    : "li",
+					inputName   : "days",
+					valueSource : "data-value", // text, index, or html attribute, default index
+					prePopulate : "Thursday",   // array or single value
+					isSingle	: false,   		// default false
+					cssOptions : {
+						vertical : true
+					},
 					onInit	  	: function() {
-						//	do something on init
+						//  do something on init
 					},
 					onSelect	: function(item, value) {
 						//	do something on select
@@ -26,13 +30,18 @@
 					}
 				});
 
-				$("#days").multiPicker({
-					inputName   : "days",		// default 
-					valueSource : "data-value", // text, index, or html attribute, default index
-					prePopulate : "Thursday",   // array or single value
-					isSingle	: false,   		// default false
+				$("#months").multiPicker({
+					selector    : "span",
+					inputName   : "months",
+					prePopulate : "Jan", // array or single value
+					valueSource : "text",
+					isSingle	: true,	 // default false
+					cssOptions : {
+						quadratic : true,
+						size	  : "small" // small, medium or large, default medium
+					},
 					onInit	  	: function() {
-						//  do something on init
+						//	do something on init
 					},
 					onSelect	: function(item, value) {
 						//	do something on select
@@ -47,7 +56,7 @@
 	<body>
 		<h1> Multipicker demo </h1>
 		<div>
-			<ul id="days" class="checklist vertical">
+			<ul id="days">
 				<li data-value="Sunday">Su</li>
 				<li data-value="Monday">Mo</li>
 				<li data-value="Tuesday">Tu</li>
@@ -59,21 +68,20 @@
 			<input type="hidden" name="days">
 		</div>
 		<div>
-			<ul id="months" class="checklist">
-				<li>Jan</li>
-				<li>Feb</li>
-				<li>Mar</li>
-				<li>Apr</li>
-				<li>May</li>
-				<li>June</li>
-				<li>July</li>
-				<li>Aug</li>
-				<li>Sept</li>
-				<li>Oct</li>
-				<li>Nov</li>
-				<li>Dec</li>
-			</ul>
-			<input type="hidden" name="months">
+			<div id="months">
+				<span>Jan</span>
+				<span>Feb</span>
+				<span>Mar</span>
+				<span>Apr</span>
+				<span>May</span>
+				<span>June</span>
+				<span>July</span>
+				<span>Aug</span>
+				<span>Sept</span>
+				<span>Oct</span>
+				<span>Nov</span>
+				<span>Dec</span>
+			</div>
 		</div>
 		<style type="text/css">
 			h1 {
