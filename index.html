@@ -7,27 +7,20 @@
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script type="text/javascript" src="multipicker.js"></script>
-		
+
 		<script type="text/javascript">
 			$(function() {
-				$("#days").multiPicker({
-					selector    : "li",
-					inputName   : "days",
-					valueSource : "data-value", // text, index, or html attribute, default index
-					prePopulate : ["Thursday", "Friday"],   // array or single value
-					isSingle	: false,   		// default false
-					cssOptions : {
-						vertical : true
-					},
-					onInit	  	: function() {
-						//  do something on init
-					},
-					onSelect	: function(item, value) {
-						//	do something on select
-					},
-					onUnselect  : function(item, value) {
-						//	do something on unselect
-					}
+				$("#days").multiPicker({ selector : "li" });
+
+				$("#days-single").multiPicker({
+					selector : "li",
+					isSingle : true
+				});
+
+				$("#days-prepopulated").multiPicker({
+					selector : "li",
+					prePopulate : ["Tu", "Fr"],
+					valueSource : "data-value"
 				});
 
 				$("#months").multiPicker({
@@ -39,7 +32,7 @@
 					cssOptions : {
 						quadratic : true,
 						size	  : "small" // small, medium or large, default medium
-					}	
+					}
 				});
 
 				$("#clubs").multiPicker({
@@ -51,22 +44,16 @@
 					}
 				});
 
-				$("#languages").multiPicker({
+				$("#programming-languages").multiPicker({
 					selector	: "checkbox",
 					prePopulate : ["C", "C++"],
 					cssOptions  : {
 						quadratic : true,
 						vertical  : true
 					}
-				}); 
+				});
 
-				$("#countries").multiPicker({
-					selector	: "checkbox",
-					prePopulate : ["USA", "Italy"],
-					cssOptions : {
-						size 	  : "large"
-					}
-				}); 
+
 			});
 		</script>
 	</head>
@@ -74,31 +61,36 @@
 		<h1> Multipicker demo </h1>
 		<div>
 			<ul id="days">
-				<li data-value="Sunday">Su</li>
-				<li data-value="Monday">Mo</li>
-				<li data-value="Tuesday">Tu</li>
-				<li data-value="Wednesday">We</li>
-				<li data-value="Thursday">Th</li>
-				<li data-value="Friday">Fr</li>
-				<li data-value="Saturday">Sa</li>
+				<li>Su</li>
+				<li>Mo</li>
+				<li>Tu</li>
+				<li>We</li>
+				<li>Th</li>
+				<li>Fr</li>
+				<li>Sa</li>
 			</ul>
-			<input type="hidden" name="days">
 		</div>
 		<div>
-			<div id="months">
-				<span>Jan</span>
-				<span>Feb</span>
-				<span>Mar</span>
-				<span>Apr</span>
-				<span>May</span>
-				<span>June</span>
-				<span>July</span>
-				<span>Aug</span>
-				<span>Sept</span>
-				<span>Oct</span>
-				<span>Nov</span>
-				<span>Dec</span>
-			</div>
+			<ul id="days-single">
+				<li>Su</li>
+				<li>Mo</li>
+				<li>Tu</li>
+				<li>We</li>
+				<li>Th</li>
+				<li>Fr</li>
+				<li>Sa</li>
+			</ul>
+		</div>
+		<div>
+			<ul id="days-prepopulated">
+				<li data-value="Su">Su</li>
+				<li data-value="Mo">Mo</li>
+				<li data-value="Tu">Tu</li>
+				<li data-value="We">We</li>
+				<li data-value="Th">Th</li>
+				<li data-value="Fr">Fr</li>
+				<li data-value="Sa">Sa</li>
+			</ul>
 		</div>
 		<br>
 		<div>
@@ -117,7 +109,7 @@
 		</div>
 		<br>
 		<div>
-			<div id="languages">
+			<div id="programming-languages">
 				<input type="checkbox" name="lang" value="C">
 				<input type="checkbox" name="lang" value="JS">
 				<input type="checkbox" name="lang" value="Swift">
@@ -129,14 +121,14 @@
 		</div>
 		<br>
 		<div>
-			<div id="countries">
-				<input type="checkbox" name="uk" value="UK">
-				<input type="checkbox" name="iran" value="Iran">
-				<input type="checkbox" name="china" value="China">
-				<input type="checkbox" name="usa" value="USA">
-				<input type="checkbox" name="italy" value="Italy">
-				<input type="checkbox" name="japan" value="Japan">
-				<input type="checkbox" name="rf" value="RF">
+			<div id="languages">
+				<input type="checkbox" name="uk" value="EN">
+				<input type="checkbox" name="iran" value="HY">
+				<input type="checkbox" name="china" value="RU">
+				<input type="checkbox" name="usa" value="EN">
+				<input type="checkbox" name="italy" value="JP">
+				<input type="checkbox" name="eu" value="DE">
+				<input type="checkbox" name="rf" value="FR">
 			</div>
 		</div>
 		<style type="text/css">
