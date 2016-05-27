@@ -1,12 +1,16 @@
 var MultiPicker = function () {
 	this.options   = {
-		activeClass: "active",
-		valueSource: "index",
-		prePopulate: null,
-		cssOptions : {
+		activeClass : "active",
+		valueSource : "index",
+		prePopulate : null,
+		cssOptions  : {
 			vertical  : false,
 			quadratic : false,
-			size	  : "medium"
+			size	  : "medium",
+			picker    : null,
+			element   : null,
+			hover     : null,
+			selected  : null
 		}
 	};
 	this.type      = "inline";
@@ -223,6 +227,42 @@ MultiPicker.updateClasses = function (item, className) {
 	}
 };
 
+MultiPicker.generateStyles = function (id, cssOptions) {
+	var styles = "";
+	if (cssOptions.picker) {
+		styles += "#" + id + ".checklist {";
+		for (var key in cssOptions.picker) {
+			styles += key + ":" + cssOptions.picker[key] + ";";
+		}
+		styles += "}";
+	}
+
+	if (cssOptions.element) {
+		styles += "#" + id + " > * {"
+		for (var key in cssOptions.element) {
+			styles += key + ":" + cssOptions.element[key] + ";";
+		}
+		styles += "}";
+	}
+
+	if (cssOptions.selected) {
+		styles += "#" + id + " > *.active {"
+		for (var key in cssOptions.selected) {
+			styles += key + ":" + cssOptions.selected[key] + ";";
+		}
+		styles += "}";
+	}
+
+	if (cssOptions.hover) {
+		styles += "#" + id + " > *:hover {"
+		for (var key in cssOptions.hover) {
+			styles +=  key + ":" + cssOptions.hover[key] + ";";
+		}
+		styles += "}";
+	}
+	$("head").append("<style type='text/css'>" + styles + "</style>");
+};
+
 jQuery.fn.extend({
 	multiPicker: function (opt) {
 		var picker = new MultiPicker();
@@ -231,7 +271,7 @@ jQuery.fn.extend({
 		picker.selector = $("#" + this.attr("id"));
 
 		if (picker.options.selector === "checkbox" || picker.options.selector === "radio") {
-			// in the case when checkbox / radiobutton used for picker, hide them and append new 
+			// in the case when checkbox / radiobutton used for picker, hide them and append new
 			// `span` tags for each input, with the same value stored in `data-value` attribute
 			picker.type = picker.options.selector;
 			if (picker.type === "radio")
@@ -241,7 +281,7 @@ jQuery.fn.extend({
 			picker.selector.find("label").css("display", "none");
 			$(picker.selector).find("input").each(function (index, item) {
 				var itemValue = $(item).val();
-				// use label text if provided else use input `value` attribute  
+				// use label text if provided else use input `value` attribute
 				var labelText = $("label[for='" + $(item).attr("id") + "']").text() || itemValue;
 				picker.selector.append("<span data-value='" + itemValue + "'>" + labelText + "</span>")
 			});
@@ -279,6 +319,10 @@ jQuery.fn.extend({
 
 		if (picker.options.cssOptions.quadratic) {
 			picker.selector.addClass("quadratic");
+		}
+
+		if (picker.options.cssOptions.picker || picker.options.cssOptions.element || picker.options.cssOptions.hover || picker.options.cssOptions.selected) {
+			MultiPicker.generateStyles(this.attr("id"), picker.options.cssOptions);
 		}
 
 		if (picker.options.prePopulate && MultiPicker.isArray(picker.options.prePopulate) && picker.options.prePopulate.length > 1 && picker.options.isSingle) {
