@@ -4,13 +4,13 @@ Multi picker is jQuery plugin for days, numbers, or other elements selecting, su
 
 #### How to use
 
-Install multipicker
+There are ceveral ways for multipicker plugin installation:
 
-using npm:   `npm install multipicker`
++ using npm:   `npm install multipicker`
 
-bower: `bower install multipicker`
++ using bower: `bower install multipicker`
 
-or download and unpack zip file from [github repository](https://github.com/styopdev/multiPicker).
++ download and unpack zip file from [github repository](https://github.com/styopdev/multiPicker).
 
 Load the latest version of jQuery library and plugin's files from `dist` folder in the html document.
 
@@ -19,7 +19,7 @@ Load the latest version of jQuery library and plugin's files from `dist` folder 
 <script type="text/javascript" src="multiPicker/dist/multipicker.min.js"></script>
 <link rel="stylesheet" href="multiPicker/dist/multipicker.min.js"></script>
 ```
-MultiPicker usage basic example.
+##### MultiPicker usage basic example.
 
 ```html
 <ul id="days">
@@ -34,10 +34,9 @@ MultiPicker usage basic example.
 ```
 
 ```javascript
-$("#days").multiPicker({ selector	: "li" });
+$("#days").multiPicker({ selector : "li" });
 ```
 ![Multipicker usage basic example](https://cloud.githubusercontent.com/assets/6073745/15856615/b172e880-2cc7-11e6-8402-1b739f005c08.gif)
-
 
 ### Options
 * `selector` (required) - element type used inside of picker (html tag like `li` / `span` / `i`, `checkbox` / `radio` - for input type `checkbox` / `radio`)
@@ -58,21 +57,21 @@ $("#days").multiPicker({ selector	: "li" });
 | selected  | empty object   | css styles (key / value js object) will be assigned to the selected elements inside of picker |
 | hover     | empty object   | css styles (key / value js object) will be assigned to the hover elements inside of picker |             |  
 
-### Usage with checkboxes and radiobuttons.
+#### Usage with checkboxes and radiobuttons.
 In the case when html tags like `li` or `span` used in multipicker, it will store values in hidden input. It will be a string separated by comma, like this `"Su, Mo, Fr, Sa"`.
 You should split this string on the server (on client in some cases), to store these values in database or make it possible to use them in picker in future (for example when user want to edit his choices).
 
-In the case when you are using checkboxes or radiobuttons, selected items will check checkbox/radiobutton in standart html way, for example:
+In the case when you are using checkboxes or radiobuttons, selected items will check checkbox/radiobutton in standart html way, picker will modify your markup, and you will get html code like these:
 
  multiple items for checkboxes
 ```html
 <div id="programming-languages">
-    <input type="checkbox" checked="true" name="lang" value="C">
+    <input type="checkbox" name="lang" value="C" checked="true">
     <input type="checkbox" name="lang" value="JS">
-    <input type="checkbox" checked="true" name="lang" value="Swift">
+    <input type="checkbox" name="lang" value="Swift" checked="true">
     <input type="checkbox" name="lang" value="Java">
     <input type="checkbox" name="lag" value="C#">
-    <input type="checkbox" checked="true" name="lang" value="C++">
+    <input type="checkbox" name="lang" value="C++" checked="true" >
     <input type="checkbox" name="lang" value="PHP">
 </div>
 ```
@@ -81,7 +80,7 @@ or single selected item for radiobuttons
 <div id="programming-languages">
     <input type="radio" name="lang" value="C">
     <input type="radio" name="lang" value="JS">
-    <input type="radio" checked="true" name="lang" value="Swift">
+    <input type="radio" name="lang" value="Swift" checked="true">
     <input type="radio" name="lang" value="Java">
     <input type="radio" name="lag" value="C#">
     <input type="radio" name="lang" value="C++">
@@ -91,7 +90,7 @@ or single selected item for radiobuttons
 
 You can access selected values in standart way, as you would do with checkboxes and radiobuttons if multipicker wouldn't been used.
 
-##### Examples`
+##### More Examples:
 
 Specify `isSingle`: true option to make only one element selectable like radiobuttons in html.
 ```javascript
@@ -184,11 +183,11 @@ $("#programming-languages").multiPicker({
 ##### Design customisation
 Plugin allows to use label tags to apply item text, and keep inputs value hidden from user. To apply custom design to multipicker you should use cssOptions (which is described in options section).
 
-For Example, this picker's
+For Example, this picker's code
 
 ![Multipicker usage with checkboxes, `vertical = true`, and `quadratic = true` options example](https://cloud.githubusercontent.com/assets/6073745/15861747/660ac798-2cde-11e6-8936-316838bca9d6.gif)
 
-code will be:
+will be:
 
 ```html
 <div id="clubs">
