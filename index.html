@@ -2,11 +2,12 @@
 <html>
 	<head>
 		<title>Multi Picker</title>
-		<link rel="stylesheet" href="multipicker.css">
+		<link rel="stylesheet" href="dist/multipicker.min.css">
 	    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Gudea">
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script type="text/javascript" src="multipicker.js"></script>
+
+		<script type="text/javascript" src="dist/multipicker.min.js"></script>
 
 		<script type="text/javascript">
 			$(function() {
@@ -19,8 +20,15 @@
 
 				$("#days-prepopulated").multiPicker({
 					selector : "li",
-					prePopulate : ["Tu", "Fr"],
+					prePopulate : ["Tuesday", "Friday"],
 					valueSource : "data-value"
+				});
+
+				$("#days-vertical").multiPicker({
+					selector   : "span",
+					cssOptions : {
+						vertical: true
+					}
 				});
 
 				$("#months").multiPicker({
@@ -36,24 +44,36 @@
 				});
 
 				$("#clubs").multiPicker({
-					selector    : "radio",
+					selector    : "checkbox",
 					prePopulate : "1", // array or single value
+					isSingle	: true,
 					cssOptions 	: {
-						quadratic : true,
-						size	  : "small" // small, medium or large, default medium
+						size	  : "large", // small, medium or large, default medium
+						element	  : {
+							"font-size"   : "11px",
+							"color" 	  : "#3a3a3a",
+							"font-weight" : "bold"
+						},
+						selected: {
+							"border-color" : "#ff4c4c",
+							"font-size"    : "14px"
+						},
+						picker: {
+							"border-color" : "#ff4c4c",
+						}
 					}
+				});
+
+				$("#languages").multiPicker({
+					selector	: "radio"
 				});
 
 				$("#programming-languages").multiPicker({
 					selector	: "checkbox",
-					prePopulate : ["C", "C++"],
-					cssOptions  : {
-						quadratic : true,
-						vertical  : true
+					cssOptions : {
+						size 	  : "large"
 					}
 				});
-
-
 			});
 		</script>
 	</head>
@@ -83,31 +103,57 @@
 		</div>
 		<div>
 			<ul id="days-prepopulated">
-				<li data-value="Su">Su</li>
-				<li data-value="Mo">Mo</li>
-				<li data-value="Tu">Tu</li>
-				<li data-value="We">We</li>
-				<li data-value="Th">Th</li>
-				<li data-value="Fr">Fr</li>
-				<li data-value="Sa">Sa</li>
+				<li data-value="Sunday">Su</li>
+				<li data-value="Monday">Mo</li>
+				<li data-value="Tuesday">Tu</li>
+				<li data-value="Wednesday">We</li>
+				<li data-value="Thursday">Th</li>
+				<li data-value="Friday">Fr</li>
+				<li data-value="Saturday">Sa</li>
 			</ul>
+		</div>
+		<div>
+			<div id="days-vertical">
+				<span>Su</span>
+				<span>Mo</span>
+				<span>Tu</span>
+				<span>We</span>
+				<span>Th</span>
+				<span>Fr</span>
+				<span>Sa</span>
+			</div>
 		</div>
 		<br>
 		<div>
 			<div id="clubs">
-				<label for="first-item">1</label>
-				<input id="first-item" type="radio" name="club" value="0">
-				<label for="second-item">2</label>
-				<input id="second-item" type="radio" name="club" value="1">
-				<label for="third-item">3</label>
-				<input id="third-item" type="radio" name="club" value="2">
-				<label for="fourth-item">4</label>
-				<input id="fourth-item"type="radio" name="club" value="3">
-				<label for="fifth-item">5</label>
-				<input id="fifth-item" type="radio" name="club" value="4">
+				<label for="zero">JAN</label>
+				<input id="zero" type="checkbox" name="club" value="0">
+				<label for="one">FEB</label>
+				<input id="one" type="checkbox" name="club" value="1">
+				<label for="two">MAR</label>
+				<input id="two" type="checkbox" name="club" value="2">
+				<label for="three">APR</label>
+				<input id="three"type="checkbox" name="club" value="3">
+				<label for="four">MAY</label>
+				<input id="four" type="checkbox" name="club" value="4">
+				<label for="five">JUN</label>
+				<input id="five" type="checkbox" name="club" value="5">
+				<label for="six">JUL</label>
+				<input id="six" type="checkbox" name="club" value="6">
+				<label for="seven">AUG</label>
+				<input id="seven" type="checkbox" name="club" value="7">
+				<label for="eight">SEB</label>
+				<input id="eight" type="checkbox" name="club" value="8">
+				<label for="nine">OCT</label>
+				<input id="nine" type="checkbox" name="club" value="9">
+				<label for="ten">NOV</label>
+				<input id="ten" type="checkbox" name="club" value="10">
+				<label for="eleven">DEC</label>
+				<input id="eleven" type="checkbox" name="club" value="11">
 			</div>
 		</div>
 		<br>
+
 		<div>
 			<div id="programming-languages">
 				<input type="checkbox" name="lang" value="C">
@@ -136,7 +182,7 @@
 				text-align: center;
 				font-family: "Gudea";
 			}
-			.checklist li {
+			.checklist * {
 				font-family: "Gudea";
 			}
 		</style>
