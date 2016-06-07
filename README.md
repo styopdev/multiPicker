@@ -4,7 +4,7 @@ Multipicker is jQuery plugin for days, numbers, or other elements selecting, sup
 
 #### How to use
 
-There are ceveral ways for multipicker plugin installation:
+There are several ways for multipicker plugin installation:
 
 + using npm:   `npm install multipicker`
 
