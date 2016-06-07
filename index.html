@@ -2,12 +2,12 @@
 <html>
 	<head>
 		<title>Multi Picker</title>
-		<link rel="stylesheet" href="multipicker.css">
+		<link rel="stylesheet" href="dist/multipicker.min.css">
 	    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Gudea">
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script type="text/javascript" src="multipicker.js"></script>
-		
+		<script type="text/javascript" src="dist/multipicker.min.js"></script>
+
 		<script type="text/javascript">
 			$(function() {
 				$("#days").multiPicker({
@@ -39,7 +39,7 @@
 					cssOptions : {
 						quadratic : true,
 						size	  : "small" // small, medium or large, default medium
-					}	
+					}
 				});
 
 				$("#clubs").multiPicker({
@@ -58,7 +58,7 @@
 						quadratic : true,
 						vertical  : true
 					}
-				}); 
+				});
 
 				$("#countries").multiPicker({
 					selector	: "checkbox",
@@ -66,7 +66,7 @@
 					cssOptions : {
 						size 	  : "large"
 					}
-				}); 
+				});
 			});
 		</script>
 	</head>

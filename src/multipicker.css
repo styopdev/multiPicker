@@ -59,8 +59,8 @@
 }
 .checklist.vertical > .right-side {
 	border-radius: 50px;
-	border-top-right-radius: 0; 
-	border-top-left-radius: 0; 
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
 	border-left: 2px solid #0036ff;
 	border-top: 2px solid transparent;
 }
