@@ -1,6 +1,6 @@
-## Multi Picker
+## Multipicker
 
-Multi picker is jQuery plugin for days, numbers, or other elements selecting, supports multi selecting (like checkboxes) or single element selection (like radiobuttons).
+Multipicker is jQuery plugin for days, numbers, or other elements selecting, supports multi selecting (like checkboxes) or single element selection (like radiobuttons).
 
 #### How to use
 
@@ -19,7 +19,7 @@ Load the latest version of jQuery library and plugin's files from `dist` folder 
 <script type="text/javascript" src="multiPicker/dist/multipicker.min.js"></script>
 <link rel="stylesheet" href="multiPicker/dist/multipicker.min.js"></script>
 ```
-##### MultiPicker usage basic example.
+##### Multipicker usage basic example.
 
 ```html
 <ul id="days">
@@ -50,16 +50,16 @@ $("#days").multiPicker({ selector : "li" });
 |  Option   | Default value  | Description  |
 |-----------|----------------|--------------|
 | vertical  | false          | picker's horizontal / vertical position |
-| quadratic | false          | by default picker is rounded, can specify this option true to make it square |
-| size      | "medium"       | picker size, available values are "small", "medium", "large" |
+| quadratic | false          | by default picker is rounded, specify this option true to make it square |
+| size      | "medium"       | picker's size, available values are "small", "medium", "large" |
 | picker    | empty object   | css styles (key / value js object) will be assigned to the picker |
 | element   | empty object   | css styles (key / value js object) will be assigned to the elements inside of picker |
 | selected  | empty object   | css styles (key / value js object) will be assigned to the selected elements inside of picker |
 | hover     | empty object   | css styles (key / value js object) will be assigned to the hover elements inside of picker |             |  
 
 #### Usage with checkboxes and radiobuttons.
-In the case when html tags like `li` or `span` used in multipicker, it will store values in hidden input. It will be a string separated by comma, like this `"Su, Mo, Fr, Sa"`.
-You should split this string on the server (on client in some cases), to store these values in database or make it possible to use them in picker in future (for example when user want to edit his choices).
+In the case when html tags like `li` or `span` used in multipicker, it will store values in hidden input, which will be a string separated by commas, like this `"Su, Mo, Fr, Sa"`.
+You should split this string on the server (on client in some cases), to store these values in database or make it possible to use them in picker in the future (for example when user want to edit his choices).
 
 In the case when you are using checkboxes or radiobuttons, selected items will check checkbox/radiobutton in standart html way, picker will modify your markup, and you will get html code like these:
 
@@ -88,7 +88,7 @@ or single selected item for radiobuttons
 </div>
 ```
 
-You can access selected values in standart way, as you would do with checkboxes and radiobuttons if multipicker wouldn't been used.
+You can access selected values in standart way, as you would do with checkboxes and radiobuttons if plugin wouldn't been used.
 
 ##### More Examples:
 
