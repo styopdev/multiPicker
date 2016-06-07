@@ -141,13 +141,13 @@ $("#days-vertical").multiPicker({
 
 ```html
 <div id="languages">
-	<input type="radio" name="uk" value="EN">
-	<input type="radio" name="iran" value="HY">
-	<input type="radio" name="china" value="RU">
-	<input type="radio" name="usa" value="EN">
-	<input type="radio" name="italy" value="JP">
-	<input type="radio" name="eu" value="DE">
-	<input type="radio" name="rf" value="FR">
+	<input type="radio" name="language" value="EN">
+	<input type="radio" name="language" value="HY">
+	<input type="radio" name="language" value="RU">
+	<input type="radio" name="language" value="EN">
+	<input type="radio" name="language" value="JP">
+	<input type="radio" name="language" value="DE">
+	<input type="radio" name="language" value="FR">
 </div>
 ```
 ```javascript
