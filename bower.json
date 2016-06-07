@@ -1,0 +1,26 @@
+{
+  "name": "multipicker",
+  "main": "multiPicker.js",
+  "homepage": "http://styopdev.github.io/multiPicker",
+  "authors": [
+    "Stepan Vardanyan <styopdev@hotmail.com>"
+  ],
+  "description": "Multipicker is jQuery plugin for elements selecting using mouse clicks and drag, supports multi selecting.",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "picker",
+    "rangepicker",
+    "plugin",
+    "jquery"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
