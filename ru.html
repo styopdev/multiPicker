@@ -13,16 +13,25 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>Multipicker by styopdev</title>
+    <title>Multipicker от styopdev</title>
   </head>
 
   <body>
+      <div class="lang-bar">
+          <a href="index.html">
+              EN
+          </a>
+          <a href="ru.html">
+              RU
+          </a>
+      </div>
     <header>
       <div class="inner">
-        <h1>Multipicker Documentation Russian Version</h1>
-        <h2>Multi Picker jQuery Plugin </h2>
+        <h1>Multipicker</h1>
+        <h2>jQuery Плагин </h2>
         <a href="https://github.com/styopdev/multiPicker" class="button"><small>View project on</small> GitHub</a>
-      </div>
+
+    </div>
     </header>
 
     <div id="content-wrapper">
@@ -31,20 +40,20 @@
           <h2>
 <a id="multipicker" class="anchor" href="#multipicker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multipicker</h2>
 
-<p>Multipicker is jQuery plugin for selecting days, numbers or other elements, it supports multi selecting (like checkboxes) or single element selection (like radio buttons).</p>
+<p>Multipicker - это jQuery плагин созданный для выбора дней, цифр, месяцев и других элементов поддерживающий выборку нескольких элементов (наподобии checkbox-ов) или одного единственного элемента (наподобии radio buttons).</p>
 
 <h4>
-<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to use</h4>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Использование</h4>
 
-<p>There are several ways for multipicker plugin installation:</p>
+<p>Существует несколько способов для подключения плагина:</p>
 
 <ul>
-<li><p>using npm:   <code>npm install multipicker</code></p></li>
-<li><p>using bower: <code>bower install multipicker</code></p></li>
-<li><p>download and unpack zip file from <a href="https://github.com/styopdev/multiPicker">github repository</a>.</p></li>
+<li><p>с помощью npm:   <code>npm install multipicker</code></p></li>
+<li><p>с помощью bower: <code>bower install multipicker</code></p></li>
+<li><p>скачав и распаковав zip архив с <a href="https://github.com/styopdev/multiPicker">github репозитория</a>.</p></li>
 </ul>
 
-<p>Load the latest version of jQuery library and plugin's files from <code>dist</code> folder in the html document.</p>
+<p>Загрузите последнюю версию jQuery и файлов плагина из папки <code>dist</code>в html документ.</p>
 
 <pre><code>&lt;script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="multiPicker/dist/multipicker.min.js"&gt;&lt;/script&gt;
@@ -52,7 +61,7 @@
 </code></pre>
 
 <h5>
-<a id="multipicker-usage-basic-example" class="anchor" href="#multipicker-usage-basic-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multipicker usage basic example.</h5>
+<a id="multipicker-usage-basic-example" class="anchor" href="#multipicker-usage-basic-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Базовый пример использования плагина.</h5>
 
 <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">ul</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>days<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">li</span>&gt;Su&lt;/<span class="pl-ent">li</span>&gt;
@@ -69,79 +78,79 @@
 <p><img src="https://cloud.githubusercontent.com/assets/6073745/15856615/b172e880-2cc7-11e6-8402-1b739f005c08.gif" alt="Multipicker usage basic example"></p>
 
 <h3>
-<a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Options</h3>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Параметры</h3>
 
 <ul>
 <li>
-<code>selector</code> (required) - element type used inside of picker (html tag like <code>li</code> / <code>span</code> / <code>i</code>, <code>checkbox</code> / <code>radio</code> - for input type <code>checkbox</code> / <code>radio</code>)</li>
+<code>selector</code> (обязательный) - вид элемента используемый внутри пикера (html тэги такие как <code>li</code> / <code>span</code> / <code>i</code>, <code>checkbox</code> / <code>radio</code> - для <code>checkbox</code> / <code>radio</code> input-ов)</li>
 <li>
-<code>inputName</code> - name of input where checked values will be stored. Plugin will create new one if input does not exist (only for non checkbox / radio elements).</li>
+<code>inputName</code> - название input-а где выбранные значения должны будут хранится. Плагин создаст новый input если его не существует (только для не checkbox / radio элементов).</li>
 <li>
-<code>valueSource</code> - source from where plugin should get value for element, possible values are: <code>index</code>, <code>text</code>, <code>data-*</code> attribute, default value is <code>index</code> (only for non checkbox / radio elements)</li>
+<code>valueSource</code> - источник откуда плагин будет брать значения для элементов, возможные значения: <code>index</code>, <code>text</code>, <code>data-*</code> аттрибут, значение по умолчанию <code>index</code> (только для не checkbox / radio элементов)</li>
 <li>
-<code>prePopulate</code> - string or array of element(s) which should be selected by default (useful for edit mode), could be <code>index</code>, <code>data-*</code> or <code>text</code> of elements', must match to valueSource</li>
+<code>prePopulate</code> - строка или массив элементов которые следуют быть выбранными по умолчанию (часто используется для редактирования), может принимать значения <code>index</code>, <code>data-*</code> or <code>text</code> элементов, должно совпадать с valueSource</li>
 <li>
-<code>isSingle</code> - allows user to select only one option from picker (like input[type="radio"] in pure html forms) default value is false (only for non checkbox / radio elements)</li>
+<code>isSingle</code> - позволяет пользователю выбрать только один элемент (наподобии input[type="radio"] в чистой html форме) значение по умолчанию false (только для не checkbox / radio элементов)</li>
 <li>
-<code>cssOptions</code> - object with options described below:</li>
+<code>cssOptions</code> - объект со свойствами описанными ниже:</li>
 </ul>
 
 <table>
 <thead>
 <tr>
-<th>Option</th>
-<th>Default value</th>
-<th>Description</th>
+<th>Свойство</th>
+<th>Значение по умолчанию</th>
+<th>Описание</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>vertical</td>
 <td>false</td>
-<td>picker's horizontal / vertical position</td>
+<td>горизонтальное / вертикальное позиционирование пикера</td>
 </tr>
 <tr>
 <td>quadratic</td>
 <td>false</td>
-<td>by default picker is rounded, specify this option true to make it square</td>
+<td>по умолчанию пикер имеет округленную форму, чтобы сделать его квадратным specify this option true to make it square</td>
 </tr>
 <tr>
 <td>size</td>
 <td>"medium"</td>
-<td>picker's size, available values are "small", "medium", "large"</td>
+<td>размер пикера, доступные значения: "small", "medium", "large"</td>
 </tr>
 <tr>
 <td>picker</td>
-<td>empty object</td>
-<td>css styles (key / value js object) will be assigned to the picker</td>
+<td>пустой объект</td>
+<td>css стили (ключ / значение js объекта) будут добавляться в пикер</td>
 </tr>
 <tr>
 <td>element</td>
-<td>empty object</td>
-<td>css styles (key / value js object) will be assigned to the elements inside of picker</td>
+<td>пустой объект</td>
+<td>css стили (ключ / значение js объекта) будут добавляться в элементы внутри пикера</td>
 </tr>
 <tr>
 <td>selected</td>
-<td>empty object</td>
-<td>css styles (key / value js object) will be assigned to the selected elements inside of picker</td>
+<td>пустой объект</td>
+<td>css стили (ключ / значение js объекта) будут добавляться в выбранные элементы внутри пикера</td>
 </tr>
 <tr>
 <td>hover</td>
-<td>empty object</td>
-<td>css styles (key / value js object) will be assigned to the hover elements inside of picker</td>
+<td>пустой объект</td>
+<td>css стили (ключ / значение js объекта) будут добавляться в hover элементы внутри пикера</td>
 </tr>
 </tbody>
 </table>
 
 <h4>
-<a id="usage-with-checkboxes-and-radiobuttons" class="anchor" href="#usage-with-checkboxes-and-radiobuttons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage with checkboxes and radiobuttons.</h4>
+<a id="usage-with-checkboxes-and-radiobuttons" class="anchor" href="#usage-with-checkboxes-and-radiobuttons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Использование с checkbox-ами и radio кнопками.</h4>
 
-<p>In case when html tags like <code>li</code> or <code>span</code> used in multipicker, it will store values in hidden input, which will be a string separated by commas, like this <code>"Su, Mo, Fr, Sa"</code>.
-You should split this string on the server (on client in some cases), to store these values in database or make it possible to use them in picker in the future (for example when user wants to edit his choices).</p>
+<p>В случае когда используются тэги наподобии <code>li</code> или <code>span</code> значения будут храниться в input[type="hidden"], значением которого будет строка с разделенными через запятую элементами, наподобии <code>"Su, Mo, Fr, Sa"</code>.
+Вам нужно будет разделить это значение через запятую на сервере (в некоторых случаях и на клиенте), чтобы хранить их в базе данных или чтобы сделать возможным использование этих значений в плагине, в свойстве prePopulate (например когда пользователь хочет изменить свой выбор).</p>
 
-<p>In case when you are using checkboxes or radiobuttons, selected items will check checkbox/radiobutton in standart html way. Picker will modify your markup, and you will get html code like these:</p>
+<p>В случаях когда вы используете checkbox-ы или radio кнопки, выбранные элементы будут отмеченны аттрибутом checked как в стандартном html. Picker изменит вашу разметку и вы получите html код похожий на:</p>
 
-<p>multiple items for checkboxes</p>
+<p>для checkbox-ов</p>
 
 <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>programming-languages<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>C<span class="pl-pds">"</span></span> <span class="pl-e">checked</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>&gt;
@@ -153,7 +162,7 @@ You should split this string on the server (on client in some cases), to store t
     &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>PHP<span class="pl-pds">"</span></span>&gt;
 &lt;/<span class="pl-ent">div</span>&gt;</pre></div>
 
-<p>or single selected item for radiobuttons</p>
+<p>или единственный выбранный элемент для radio кнопок</p>
 
 <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>programming-languages<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>C<span class="pl-pds">"</span></span>&gt;
@@ -165,12 +174,12 @@ You should split this string on the server (on client in some cases), to store t
     &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>PHP<span class="pl-pds">"</span></span>&gt;
 &lt;/<span class="pl-ent">div</span>&gt;</pre></div>
 
-<p>You can access selected values in standart way as you would do with checkboxes and radiobuttons if plugin wouldn't been used.</p>
+<p>И так вы можете получить выбранные элементы с помощью стандартного подхода, в точности так как бы вы сделали если бы не использовали multipicker.</p>
 
 <h5>
-<a id="more-examples" class="anchor" href="#more-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>More Examples:</h5>
+<a id="more-examples" class="anchor" href="#more-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Примеры использования:</h5>
 
-<p>Set <code>isSingle</code>: true to make only one element selectable like radiobuttons in html.</p>
+<p>Измените <code>isSingle</code> на true чтобы сделать возможным выбор одного единственного элемента, наподобии radio кнопок в html.</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#days<span class="pl-pds">"</span></span>).<span class="pl-en">multiPicker</span>({
     selector<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>li<span class="pl-pds">"</span></span>,
@@ -179,7 +188,7 @@ You should split this string on the server (on client in some cases), to store t
 
 <p><img src="https://cloud.githubusercontent.com/assets/6073745/15856616/b187b774-2cc7-11e6-8d70-accd5c44aa4c.gif" alt="Multipicker usage with isSingle=true option  example"></p>
 
-<p>Specify <code>prePopulate</code> array and valueSource options to get some options selected by default</p>
+<p>Добавьте <code>prePopulate</code> массив чтобы сделать некоторые элементы выбранными по умолчанию</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#days<span class="pl-pds">"</span></span>).<span class="pl-en">multiPicker</span>({
     selector <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>li<span class="pl-pds">"</span></span>,
@@ -189,7 +198,7 @@ You should split this string on the server (on client in some cases), to store t
 
 <p><img src="https://cloud.githubusercontent.com/assets/6073745/15856614/b153e19c-2cc7-11e6-9f24-ca9f62ec3e20.gif" alt="Multipicker usage with prepopuated selectors  example"></p>
 
-<p>To make your picker vertical just use <code>cssOptions</code> <code>vertical : true</code> property</p>
+<p>Чтобы сделать пикер вертикальным нужно лишь добавить<code>cssOptions</code> <code>vertical : true</code> параметр</p>
 
 <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>days-vertical<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">span</span>&gt;Su&lt;/<span class="pl-ent">span</span>&gt;
@@ -211,7 +220,7 @@ You should split this string on the server (on client in some cases), to store t
 <p><img src="https://cloud.githubusercontent.com/assets/6073745/15857611/503ea1fc-2ccd-11e6-95b6-989dff377e66.gif" alt="Multipicker usage with `vertical=true` css option  example"></p>
 
 <h5>
-<a id="using-radiobuttons" class="anchor" href="#using-radiobuttons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using radiobuttons</h5>
+<a id="using-radiobuttons" class="anchor" href="#using-radiobuttons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>С использованием radio кнопок</h5>
 
 <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>languages<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>EN<span class="pl-pds">"</span></span>&gt;
@@ -228,9 +237,9 @@ You should split this string on the server (on client in some cases), to store t
 <p><img src="https://cloud.githubusercontent.com/assets/6073745/15859929/1cfc7836-2cd8-11e6-93fe-9c54b9186518.gif" alt="Multipicker usage with radiobuttons  example"></p>
 
 <h5>
-<a id="using-checkboxes" class="anchor" href="#using-checkboxes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using checkboxes</h5>
+<a id="using-checkboxes" class="anchor" href="#using-checkboxes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>С использованием checkbox-ов</h5>
+<p>С использованием параметров vertical, quadratic и prepopulated:</p>
 
-<p>With vertical, quadratic and prepopulated options:</p>
 
 <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>programming-languages<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>C<span class="pl-pds">"</span></span>&gt;
@@ -254,15 +263,15 @@ You should split this string on the server (on client in some cases), to store t
 <p><img src="https://cloud.githubusercontent.com/assets/6073745/15859318/c19e69c4-2cd5-11e6-8838-fa0b1fdcaf03.gif" alt="Multipicker usage with checkboxes, `vertical: true`, and `quadratic = true` options example"></p>
 
 <h5>
-<a id="design-customisation" class="anchor" href="#design-customisation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Design customisation</h5>
+<a id="design-customisation" class="anchor" href="#design-customisation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Изменение дизайна</h5>
 
-<p>Plugin allows to use label tags to apply item text and keep input's value hidden from user. To apply custom design to multipicker you should use cssOptions (which is described in options section).</p>
+<p>Плагин позволяет использовать тэг label для предоставления текста элемента и сохранения его value скрытым. Для изменения дизайна multipicker-а вы можете использовать параметр cssOptions (подробно описанный в разделе параметры).</p>
 
-<p>For Example, this picker's code</p>
+<p>Например код пикера ниже</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/6073745/15861747/660ac798-2cde-11e6-8936-316838bca9d6.gif" alt="Multipicker usage with checkboxes, `vertical : true`, and `quadratic = true` options example"></p>
 
-<p>will be:</p>
+<p>будет</p>
 
 <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>clubs<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>zero<span class="pl-pds">"</span></span>&gt;JAN&lt;/<span class="pl-ent">label</span>&gt;
@@ -312,7 +321,6 @@ You should split this string on the server (on client in some cases), to store t
     }
 });</pre></div>
         </section>
-
         <aside id="sidebar">
           <a href="https://github.com/styopdev/multiPicker/zipball/master" class="button">
             <small>Download</small>

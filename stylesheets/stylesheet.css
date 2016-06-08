@@ -532,7 +532,7 @@ a.button small {
 }
 header a.button {
   position: absolute;
-  top: 0;
+  top: 20px;
   right: 0;
   background: transparent url(../images/github-button.png) 0 0 no-repeat;
 }
@@ -873,9 +873,20 @@ footer a:hover {
   }
 }
 
+.lang-bar a {
+    color: white;
+    margin-right: 5px;
+    font-size: 22px;
+    font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+}
+.lang-bar {
+    float: right;
+    margin-right: 260px;
+    margin-top: 15px;
+}
+
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) { }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) { }
-
