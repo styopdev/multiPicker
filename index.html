@@ -29,62 +29,288 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h2>
-<a id="multi-picker" class="anchor" href="#multi-picker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multi Picker</h2>
+<a id="multipicker" class="anchor" href="#multipicker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multipicker</h2>
 
-<p>Multi picker is jQuery plugin for days, numbers, or other elements selecting, supports multi selecting (like checkboxes) or single element selection (like radiobuttons).</p>
+<p>Multipicker is jQuery plugin for selecting days, numbers or other elements, it supports multi selecting (like checkboxes) or single element selection (like radio buttons).</p>
 
 <h4>
 <a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to use</h4>
 
-<p>1) Load the latest version of jQuery library and plugin's files in the html document.</p>
+<p>There are several ways for multipicker plugin installation:</p>
 
-<pre><code>&lt;script src="//code.jquery.com/jquery-latest.min.js"&gt;&lt;/script&gt;
-&lt;script src="multipicker.js"&gt;&lt;/script&gt;
-&lt;link rel="stylesheet" href="multipicker.css"&gt;&lt;/script&gt;
+<ul>
+<li><p>using npm:   <code>npm install multipicker</code></p></li>
+<li><p>using bower: <code>bower install multipicker</code></p></li>
+<li><p>download and unpack zip file from <a href="https://github.com/styopdev/multiPicker">github repository</a>.</p></li>
+</ul>
+
+<p>Load the latest version of jQuery library and plugin's files from <code>dist</code> folder in the html document.</p>
+
+<pre><code>&lt;script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="multiPicker/dist/multipicker.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="multiPicker/dist/multipicker.min.js"&gt;&lt;/script&gt;
 </code></pre>
 
-<p>2) The HTML to create a basic date range picker.</p>
+<h5>
+<a id="multipicker-usage-basic-example" class="anchor" href="#multipicker-usage-basic-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multipicker usage basic example.</h5>
 
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">ul</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>checklist<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>checklist<span class="pl-pds">"</span></span>&gt;
-  &lt;<span class="pl-ent">li</span>&gt;Su&lt;/<span class="pl-ent">li</span>&gt;
-  &lt;<span class="pl-ent">li</span>&gt;Mo&lt;/<span class="pl-ent">li</span>&gt;
-  &lt;<span class="pl-ent">li</span>&gt;Tu&lt;/<span class="pl-ent">li</span>&gt;
-  &lt;<span class="pl-ent">li</span>&gt;We&lt;/<span class="pl-ent">li</span>&gt;
-  &lt;<span class="pl-ent">li</span>&gt;Th&lt;/<span class="pl-ent">li</span>&gt;
-  &lt;<span class="pl-ent">li</span>&gt;Fr&lt;/<span class="pl-ent">li</span>&gt;
-  &lt;<span class="pl-ent">li</span>&gt;Sa&lt;/<span class="pl-ent">li</span>&gt;
-&lt;/<span class="pl-ent">ul</span>&gt;
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">ul</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>days<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">li</span>&gt;Su&lt;/<span class="pl-ent">li</span>&gt;
+    &lt;<span class="pl-ent">li</span>&gt;Mo&lt;/<span class="pl-ent">li</span>&gt;
+    &lt;<span class="pl-ent">li</span>&gt;Tu&lt;/<span class="pl-ent">li</span>&gt;
+    &lt;<span class="pl-ent">li</span>&gt;We&lt;/<span class="pl-ent">li</span>&gt;
+    &lt;<span class="pl-ent">li</span>&gt;Th&lt;/<span class="pl-ent">li</span>&gt;
+    &lt;<span class="pl-ent">li</span>&gt;Fr&lt;/<span class="pl-ent">li</span>&gt;
+    &lt;<span class="pl-ent">li</span>&gt;Sa&lt;/<span class="pl-ent">li</span>&gt;
+&lt;/<span class="pl-ent">ul</span>&gt;</pre></div>
 
-&lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>hidden<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>multi-picker<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>&gt;</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#days<span class="pl-pds">"</span></span>).<span class="pl-en">multiPicker</span>({ selector <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>li<span class="pl-pds">"</span></span> });</pre></div>
 
-<p>3) Initialize the picker plugin.</p>
+<p><img src="https://cloud.githubusercontent.com/assets/6073745/15856615/b172e880-2cc7-11e6-8402-1b739f005c08.gif" alt="Multipicker usage basic example"></p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#checklist<span class="pl-pds">"</span></span>).<span class="pl-en">multiPicker</span>({
-  <span class="pl-c">// input name</span>
-  inputName<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>multi-picker<span class="pl-pds">"</span></span>, 
-  <span class="pl-c">// text, index, or html attribute, default index</span>
-  valueSource<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span>,        
-  <span class="pl-c">// array or single value</span>
-  prePopulate<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">"</span>Tu<span class="pl-pds">"</span></span>],
-  <span class="pl-c">// is selection single </span>
-  isSingle<span class="pl-k">:</span> <span class="pl-c1">false</span>,  
-  <span class="pl-c">// callbacks   </span>
-  <span class="pl-en">onInit</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
-    <span class="pl-c">// do something</span>
-  },
-  <span class="pl-en">onSelect</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">item</span>, <span class="pl-smi">value</span>) {
-    <span class="pl-c">// do something</span>
-  },
-  <span class="pl-en">onUnselect</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">item</span>, <span class="pl-smi">value</span>) {
-    <span class="pl-c">// do something</span>
-  }
+<h3>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Options</h3>
+
+<ul>
+<li>
+<code>selector</code> (required) - element type used inside of picker (html tag like <code>li</code> / <code>span</code> / <code>i</code>, <code>checkbox</code> / <code>radio</code> - for input type <code>checkbox</code> / <code>radio</code>)</li>
+<li>
+<code>inputName</code> - name of input where checked values will be stored. Plugin will create new one if input does not exist (only for non checkbox / radio elements).</li>
+<li>
+<code>valueSource</code> - source from where plugin should get value for element, possible values are: <code>index</code>, <code>text</code>, <code>data-*</code> attribute, default value is <code>index</code> (only for non checkbox / radio elements)</li>
+<li>
+<code>prePopulate</code> - string or array of element(s) which should be selected by default (useful for edit mode), could be <code>index</code>, <code>data-*</code> or <code>text</code> of elements', must match to valueSource</li>
+<li>
+<code>isSingle</code> - allows user to select only one option from picker (like input[type="radio"] in pure html forms) default value is false (only for non checkbox / radio elements)</li>
+<li>
+<code>cssOptions</code> - object with options described below:</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vertical</td>
+<td>false</td>
+<td>picker's horizontal / vertical position</td>
+</tr>
+<tr>
+<td>quadratic</td>
+<td>false</td>
+<td>by default picker is rounded, specify this option true to make it square</td>
+</tr>
+<tr>
+<td>size</td>
+<td>"medium"</td>
+<td>picker's size, available values are "small", "medium", "large"</td>
+</tr>
+<tr>
+<td>picker</td>
+<td>empty object</td>
+<td>css styles (key / value js object) will be assigned to the picker</td>
+</tr>
+<tr>
+<td>element</td>
+<td>empty object</td>
+<td>css styles (key / value js object) will be assigned to the elements inside of picker</td>
+</tr>
+<tr>
+<td>selected</td>
+<td>empty object</td>
+<td>css styles (key / value js object) will be assigned to the selected elements inside of picker</td>
+</tr>
+<tr>
+<td>hover</td>
+<td>empty object</td>
+<td>css styles (key / value js object) will be assigned to the hover elements inside of picker</td>
+</tr>
+</tbody>
+</table>
+
+<h4>
+<a id="usage-with-checkboxes-and-radiobuttons" class="anchor" href="#usage-with-checkboxes-and-radiobuttons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage with checkboxes and radiobuttons.</h4>
+
+<p>In case when html tags like <code>li</code> or <code>span</code> used in multipicker, it will store values in hidden input, which will be a string separated by commas, like this <code>"Su, Mo, Fr, Sa"</code>.
+You should split this string on the server (on client in some cases), to store these values in database or make it possible to use them in picker in the future (for example when user wants to edit his choices).</p>
+
+<p>In case when you are using checkboxes or radiobuttons, selected items will check checkbox/radiobutton in standart html way. Picker will modify your markup, and you will get html code like these:</p>
+
+<p>multiple items for checkboxes</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>programming-languages<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>C<span class="pl-pds">"</span></span> <span class="pl-e">checked</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>JS<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>Swift<span class="pl-pds">"</span></span> <span class="pl-e">checked</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>Java<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lag<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>C#<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>C++<span class="pl-pds">"</span></span> <span class="pl-e">checked</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span> &gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>PHP<span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<p>or single selected item for radiobuttons</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>programming-languages<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>C<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>JS<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>Swift<span class="pl-pds">"</span></span> <span class="pl-e">checked</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>Java<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lag<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>C#<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>C++<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>PHP<span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<p>You can access selected values in standart way as you would do with checkboxes and radiobuttons if plugin wouldn't been used.</p>
+
+<h5>
+<a id="more-examples" class="anchor" href="#more-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>More Examples:</h5>
+
+<p>Set <code>isSingle</code>: true to make only one element selectable like radiobuttons in html.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#days<span class="pl-pds">"</span></span>).<span class="pl-en">multiPicker</span>({
+    selector<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>li<span class="pl-pds">"</span></span>,
+    isSingle<span class="pl-k">:</span> <span class="pl-c1">true</span>
 });</pre></div>
 
-<p>Default picker <br>
-<img src="http://content.screencast.com/users/styopdev/folders/Jing/media/1363ef80-5c52-486a-8866-ab39fb4beec1/00000007.png" alt="Picker example">  <br>
-Add class .vertical to picker container for vertical picker.  <br>
-Specify isSingle = true option for radiobuttons mode.  <br>
-<img src="http://content.screencast.com/users/styopdev/folders/Jing/media/56ef03a1-2acf-45d4-b4d5-1a6d6d82b798/2016-02-17_2351.png" alt="Picker example"></p>
+<p><img src="https://cloud.githubusercontent.com/assets/6073745/15856616/b187b774-2cc7-11e6-8d70-accd5c44aa4c.gif" alt="Multipicker usage with isSingle=true option  example"></p>
+
+<p>Specify <code>prePopulate</code> array and valueSource options to get some options selected by default</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#days<span class="pl-pds">"</span></span>).<span class="pl-en">multiPicker</span>({
+    selector <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>li<span class="pl-pds">"</span></span>,
+    prePopulate <span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">"</span>Tu<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Fr<span class="pl-pds">"</span></span>],
+    valueSource <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>data-value<span class="pl-pds">"</span></span>
+});</pre></div>
+
+<p><img src="https://cloud.githubusercontent.com/assets/6073745/15856614/b153e19c-2cc7-11e6-9f24-ca9f62ec3e20.gif" alt="Multipicker usage with prepopuated selectors  example"></p>
+
+<p>To make your picker vertical just use <code>cssOptions</code> <code>vertical : true</code> property</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>days-vertical<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">span</span>&gt;Su&lt;/<span class="pl-ent">span</span>&gt;
+    &lt;<span class="pl-ent">span</span>&gt;Mo&lt;/<span class="pl-ent">span</span>&gt;
+    &lt;<span class="pl-ent">span</span>&gt;Tu&lt;/<span class="pl-ent">span</span>&gt;
+    &lt;<span class="pl-ent">span</span>&gt;We&lt;/<span class="pl-ent">span</span>&gt;
+    &lt;<span class="pl-ent">span</span>&gt;Th&lt;/<span class="pl-ent">span</span>&gt;
+    &lt;<span class="pl-ent">span</span>&gt;Fr&lt;/<span class="pl-ent">span</span>&gt;
+    &lt;<span class="pl-ent">span</span>&gt;Sa&lt;/<span class="pl-ent">span</span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#days-vertical<span class="pl-pds">"</span></span>).<span class="pl-en">multiPicker</span>({
+    selector   <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>span<span class="pl-pds">"</span></span>,
+    cssOptions <span class="pl-k">:</span> {
+        vertical<span class="pl-k">:</span> <span class="pl-c1">true</span>
+    }
+});</pre></div>
+
+<p><img src="https://cloud.githubusercontent.com/assets/6073745/15857611/503ea1fc-2ccd-11e6-95b6-989dff377e66.gif" alt="Multipicker usage with `vertical=true` css option  example"></p>
+
+<h5>
+<a id="using-radiobuttons" class="anchor" href="#using-radiobuttons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using radiobuttons</h5>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>languages<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>EN<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>HY<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>RU<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>EN<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>JP<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>DE<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>FR<span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#languages<span class="pl-pds">"</span></span>).<span class="pl-en">multiPicker</span>({ selector <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> });</pre></div>
+
+<p><img src="https://cloud.githubusercontent.com/assets/6073745/15859929/1cfc7836-2cd8-11e6-93fe-9c54b9186518.gif" alt="Multipicker usage with radiobuttons  example"></p>
+
+<h5>
+<a id="using-checkboxes" class="anchor" href="#using-checkboxes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using checkboxes</h5>
+
+<p>With vertical, quadratic and prepopulated options:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>programming-languages<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>C<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>JS<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>Swift<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>Java<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lag<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>C#<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>C++<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>lang<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>PHP<span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#programming-languages<span class="pl-pds">"</span></span>).<span class="pl-en">multiPicker</span>({
+    selector    <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span>,
+    prePopulate <span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">"</span>C<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>C++<span class="pl-pds">"</span></span>],
+    cssOptions  <span class="pl-k">:</span> {
+        quadratic <span class="pl-k">:</span> <span class="pl-c1">true</span>,
+        vertical  <span class="pl-k">:</span> <span class="pl-c1">true</span>
+    }
+});</pre></div>
+
+<p><img src="https://cloud.githubusercontent.com/assets/6073745/15859318/c19e69c4-2cd5-11e6-8838-fa0b1fdcaf03.gif" alt="Multipicker usage with checkboxes, `vertical: true`, and `quadratic = true` options example"></p>
+
+<h5>
+<a id="design-customisation" class="anchor" href="#design-customisation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Design customisation</h5>
+
+<p>Plugin allows to use label tags to apply item text and keep input's value hidden from user. To apply custom design to multipicker you should use cssOptions (which is described in options section).</p>
+
+<p>For Example, this picker's code</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/6073745/15861747/660ac798-2cde-11e6-8936-316838bca9d6.gif" alt="Multipicker usage with checkboxes, `vertical : true`, and `quadratic = true` options example"></p>
+
+<p>will be:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>clubs<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>zero<span class="pl-pds">"</span></span>&gt;JAN&lt;/<span class="pl-ent">label</span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>zero<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>club<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>one<span class="pl-pds">"</span></span>&gt;FEB&lt;/<span class="pl-ent">label</span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>one<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>club<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>two<span class="pl-pds">"</span></span>&gt;MAR&lt;/<span class="pl-ent">label</span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>two<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>club<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>three<span class="pl-pds">"</span></span>&gt;APR&lt;/<span class="pl-ent">label</span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>three<span class="pl-pds">"</span></span><span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>club<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>four<span class="pl-pds">"</span></span>&gt;MAY&lt;/<span class="pl-ent">label</span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>four<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>club<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>4<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>five<span class="pl-pds">"</span></span>&gt;JUN&lt;/<span class="pl-ent">label</span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>five<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>club<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>5<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>six<span class="pl-pds">"</span></span>&gt;JUL&lt;/<span class="pl-ent">label</span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>six<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>club<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>6<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>seven<span class="pl-pds">"</span></span>&gt;AUG&lt;/<span class="pl-ent">label</span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>seven<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>club<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>7<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>eight<span class="pl-pds">"</span></span>&gt;SEB&lt;/<span class="pl-ent">label</span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>eight<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>club<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>8<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>nine<span class="pl-pds">"</span></span>&gt;OCT&lt;/<span class="pl-ent">label</span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>nine<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>club<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>9<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>ten<span class="pl-pds">"</span></span>&gt;NOV&lt;/<span class="pl-ent">label</span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>ten<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>club<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>10<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>eleven<span class="pl-pds">"</span></span>&gt;DEC&lt;/<span class="pl-ent">label</span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>eleven<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>club<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>11<span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#clubs<span class="pl-pds">"</span></span>).<span class="pl-en">multiPicker</span>({
+    selector    <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span>,
+    prePopulate <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>,
+    isSingle    <span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    cssOptions  <span class="pl-k">:</span> {
+        size      <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>large<span class="pl-pds">"</span></span>,
+        element   <span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>font-size<span class="pl-pds">"</span></span>   <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>11px<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>       <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>#3a3a3a<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>font-weight<span class="pl-pds">"</span></span> <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>bold<span class="pl-pds">"</span></span>
+        },
+        selected<span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>border-color<span class="pl-pds">"</span></span> <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>#ff4c4c<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>font-size<span class="pl-pds">"</span></span>    <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>14px<span class="pl-pds">"</span></span>
+        },
+        picker<span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>border-color<span class="pl-pds">"</span></span> <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>#ff4c4c<span class="pl-pds">"</span></span>,
+        }
+    }
+});</pre></div>
         </section>
 
         <aside id="sidebar">
@@ -98,6 +324,8 @@ Specify isSingle = true option for radiobuttons mode.  <br>
           </a>
 
           <p class="repo-owner"><a href="https://github.com/styopdev/multiPicker"></a> is maintained by <a href="https://github.com/styopdev">styopdev</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
         </aside>
       </div>
     </div>
