@@ -8,7 +8,20 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="javascripts/multipicker.min.js"></script>
+    <script type="text/javascript" src="javascripts/main.js"></script>
+    <link rel="stylesheet" href="stylesheets/multipicker.min.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Gudea">
+    <style type="text/css">
+        h1 {
+            text-align: center;
+            font-family: "Gudea";
+        }
+        .checklist * {
+            font-family: "Gudea";
+        }
+    </style>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -74,7 +87,17 @@
 
 <div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#days<span class="pl-pds">"</span></span>).<span class="pl-en">multiPicker</span>({ selector <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>li<span class="pl-pds">"</span></span> });</pre></div>
 
-<p><img src="https://cloud.githubusercontent.com/assets/6073745/15856615/b172e880-2cc7-11e6-8402-1b739f005c08.gif" alt="Multipicker usage basic example"></p>
+<p>
+    <ul id="days">
+        <li>Su</li>
+        <li>Mo</li>
+        <li>Tu</li>
+        <li>We</li>
+        <li>Th</li>
+        <li>Fr</li>
+        <li>Sa</li>
+    </ul>
+</p>
 
 <h3>
 <a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Options</h3>
@@ -185,7 +208,17 @@ You should split this string on the server (on client in some cases), to store t
     isSingle<span class="pl-k">:</span> <span class="pl-c1">true</span>
 });</pre></div>
 
-<p><img src="https://cloud.githubusercontent.com/assets/6073745/15856616/b187b774-2cc7-11e6-8d70-accd5c44aa4c.gif" alt="Multipicker usage with isSingle=true option  example"></p>
+<p>
+    <ul id="days-single">
+		<li>Su</li>
+		<li>Mo</li>
+		<li>Tu</li>
+		<li>We</li>
+		<li>Th</li>
+		<li>Fr</li>
+		<li>Sa</li>
+	</ul>
+</p>
 
 <p>Specify <code>prePopulate</code> array and valueSource options to get some options selected by default</p>
 
@@ -195,7 +228,17 @@ You should split this string on the server (on client in some cases), to store t
     valueSource <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>data-value<span class="pl-pds">"</span></span>
 });</pre></div>
 
-<p><img src="https://cloud.githubusercontent.com/assets/6073745/15856614/b153e19c-2cc7-11e6-9f24-ca9f62ec3e20.gif" alt="Multipicker usage with prepopuated selectors  example"></p>
+<p>
+    <ul id="days-prepopulated">
+		<li data-value="Sunday">Su</li>
+		<li data-value="Monday">Mo</li>
+		<li data-value="Tuesday">Tu</li>
+		<li data-value="Wednesday">We</li>
+		<li data-value="Thursday">Th</li>
+		<li data-value="Friday">Fr</li>
+		<li data-value="Saturday">Sa</li>
+	</ul>
+</p>
 
 <p>To make your picker vertical just use <code>cssOptions</code> <code>vertical : true</code> property</p>
 
@@ -216,7 +259,17 @@ You should split this string on the server (on client in some cases), to store t
     }
 });</pre></div>
 
-<p><img src="https://cloud.githubusercontent.com/assets/6073745/15857611/503ea1fc-2ccd-11e6-95b6-989dff377e66.gif" alt="Multipicker usage with `vertical=true` css option  example"></p>
+<p>
+    <div id="days-vertical">
+        <span>Su</span>
+        <span>Mo</span>
+        <span>Tu</span>
+        <span>We</span>
+        <span>Th</span>
+        <span>Fr</span>
+        <span>Sa</span>
+    </div>
+</p>
 
 <h5>
 <a id="using-radiobuttons" class="anchor" href="#using-radiobuttons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using radiobuttons</h5>
@@ -233,7 +286,17 @@ You should split this string on the server (on client in some cases), to store t
 
 <div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#languages<span class="pl-pds">"</span></span>).<span class="pl-en">multiPicker</span>({ selector <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>radio<span class="pl-pds">"</span></span> });</pre></div>
 
-<p><img src="https://cloud.githubusercontent.com/assets/6073745/15859929/1cfc7836-2cd8-11e6-93fe-9c54b9186518.gif" alt="Multipicker usage with radiobuttons  example"></p>
+<p>
+    <div id="languages">
+        <input type="radio" name="language" value="EN">
+        <input type="radio" name="language" value="HY">
+        <input type="radio" name="language" value="RU">
+        <input type="radio" name="language" value="EN">
+        <input type="radio" name="language" value="JP">
+        <input type="radio" name="language" value="DE">
+        <input type="radio" name="language" value="FR">
+    </div>
+</p>
 
 <h5>
 <a id="using-checkboxes" class="anchor" href="#using-checkboxes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using checkboxes</h5>
@@ -259,7 +322,17 @@ You should split this string on the server (on client in some cases), to store t
     }
 });</pre></div>
 
-<p><img src="https://cloud.githubusercontent.com/assets/6073745/15859318/c19e69c4-2cd5-11e6-8838-fa0b1fdcaf03.gif" alt="Multipicker usage with checkboxes, `vertical: true`, and `quadratic = true` options example"></p>
+<p>
+    <div id="programming-languages">
+        <input type="checkbox" name="lang" value="C">
+        <input type="checkbox" name="lang" value="JS">
+        <input type="checkbox" name="lang" value="Swift">
+        <input type="checkbox" name="lang" value="Java">
+        <input type="checkbox" name="lag" value="C#">
+        <input type="checkbox" name="lang" value="C++">
+        <input type="checkbox" name="lang" value="PHP">
+    </div>
+</p>
 
 <h5>
 <a id="design-customisation" class="anchor" href="#design-customisation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Design customisation</h5>
@@ -268,7 +341,34 @@ You should split this string on the server (on client in some cases), to store t
 
 <p>For Example, this picker's code</p>
 
-<p><img src="https://cloud.githubusercontent.com/assets/6073745/15861747/660ac798-2cde-11e6-8936-316838bca9d6.gif" alt="Multipicker usage with checkboxes, `vertical : true`, and `quadratic = true` options example"></p>
+<p>
+    <div id="clubs">
+        <label for="zero">JAN</label>
+        <input id="zero" type="checkbox" name="club" value="0">
+        <label for="one">FEB</label>
+        <input id="one" type="checkbox" name="club" value="1">
+        <label for="two">MAR</label>
+        <input id="two" type="checkbox" name="club" value="2">
+        <label for="three">APR</label>
+        <input id="three"type="checkbox" name="club" value="3">
+        <label for="four">MAY</label>
+        <input id="four" type="checkbox" name="club" value="4">
+        <label for="five">JUN</label>
+        <input id="five" type="checkbox" name="club" value="5">
+        <label for="six">JUL</label>
+        <input id="six" type="checkbox" name="club" value="6">
+        <label for="seven">AUG</label>
+        <input id="seven" type="checkbox" name="club" value="7">
+        <label for="eight">SEB</label>
+        <input id="eight" type="checkbox" name="club" value="8">
+        <label for="nine">OCT</label>
+        <input id="nine" type="checkbox" name="club" value="9">
+        <label for="ten">NOV</label>
+        <input id="ten" type="checkbox" name="club" value="10">
+        <label for="eleven">DEC</label>
+        <input id="eleven" type="checkbox" name="club" value="11">
+    </div>
+</p>
 
 <p>will be:</p>
 
