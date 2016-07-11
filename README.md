@@ -1,5 +1,7 @@
 ## Multipicker
 
+Plugin's [`official website`](http://styopdev.github.io/multiPicker/) with demos, also [`available in Russian`](http://styopdev.github.io/multiPicker/ru.html).
+
 Multipicker is jQuery plugin for selecting days, numbers or other elements, it supports multi selecting (like checkboxes) or single element selection (like radio buttons).
 
 #### How to use
