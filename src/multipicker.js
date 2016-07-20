@@ -174,58 +174,43 @@
 		if ($(item).hasClass(className)) {
 			if ($(item).next().hasClass(className) && $(item).prev().hasClass(className)) {
 				if ($(item).next().next().hasClass(className)) {
-					$(item).next().removeClass();
-					$(item).next().addClass(className + " center-side");
+					$(item).next().attr('class', className + " center-side");
 				} else {
-					$(item).next().removeClass();
-					$(item).next().addClass(className + " right-side");
+					$(item).next().attr('class', className + " right-side");
 				}
 				if ($(item).prev().prev().hasClass(className)) {
-					$(item).prev().removeClass();
-					$(item).prev().addClass(className + " center-side");
+					$(item).prev().attr('class', className + " center-side");
 				} else {
-					$(item).prev().removeClass();
-					$(item).prev().addClass(className + " left-side");
+					$(item).prev().attr('class', className + " left-side");
 				}
-				$(item).removeClass();
-				$(item).addClass("active center-side");
+				$(item).attr("class", "active center-side");
 			} else if ($(item).next().hasClass(className) && !$(item).prev().hasClass(className)) {
 				if ($(item).next().next().hasClass(className)) {
-					$(item).next().removeClass();
-					$(item).next().addClass(className + " center-side");
+					$(item).next().attr("class", className + " center-side");
 				} else {
-					$(item).next().removeClass();
-					$(item).next().addClass(className + " right-side");
+					$(item).next().attr("class", className + " right-side");
 				}
-				$(item).removeClass();
-				$(item).addClass("active left-side");
+				$(item).attr("class", "active left-side");
 			} else if (!$(item).next().hasClass(className) && $(item).prev().hasClass(className)) {
 				if ($(item).prev().prev().hasClass(className)) {
-					$(item).prev().removeClass();
-					$(item).prev().addClass(className + " center-side");
+					$(item).prev().attr("class", className + " center-side");
 				} else {
-					$(item).prev().removeClass();
-					$(item).prev().addClass(className + " left-side");
+					$(item).prev().attr("class", className + " left-side");
 				}
-				$(item).removeClass();
-				$(item).addClass(className + " right-side");
+				$(item).attr("class", className + " right-side");
 			}
 		} else {
 			if ($(item).next().hasClass("right-side")) {
-				$(item).next().removeClass();
-				$(item).next().addClass(className);
+				$(item).next().attr("class", className);
 			}
 			if ($(item).prev().hasClass("left-side")) {
-				$(item).prev().removeClass();
-				$(item).prev().addClass(className);
+				$(item).prev().attr("class", className);
 			}
 			if ($(item).prev().hasClass("center-side")) {
-				$(item).prev().removeClass();
-				$(item).prev().addClass(className + " right-side");
+				$(item).prev().attr("class", className + " right-side");
 			}
 			if ($(item).next().hasClass("center-side")) {
-				$(item).next().removeClass();
-				$(item).next().addClass(className + " left-side");
+				$(item).next().attr("class", className + " left-side");
 			}
 		}
 	};
