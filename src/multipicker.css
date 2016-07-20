@@ -47,6 +47,9 @@
 	border-right: 2px solid transparent;
 	border-left: 2px solid transparent;
 }
+.checklist [data-disabled="true"] {
+	cursor: not-allowed; 
+}
 .checklist.vertical {
 	width: 38px;
 	padding: 3px 4px;
