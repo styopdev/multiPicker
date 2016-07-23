@@ -1,6 +1,8 @@
 ## Multipicker
 
-Multipicker is jQuery plugin for days, numbers, or other elements selecting, supports multi selecting (like checkboxes) or single element selection (like radiobuttons).
+Plugin's [`official website`](http://styopdev.github.io/multiPicker/) with demos, also [`available in Russian`](http://styopdev.github.io/multiPicker/ru.html).
+
+Multipicker is jQuery plugin for selecting days, numbers or other elements, it supports multi selecting (like checkboxes) or single element selection (like radio buttons).
 
 #### How to use
 
@@ -59,10 +61,10 @@ $("#days").multiPicker({ selector : "li" });
 | hover     | empty object   | css styles (key / value js object) will be assigned to the hover elements inside of picker |             |  
 
 #### Usage with checkboxes and radiobuttons.
-In the case when html tags like `li` or `span` used in multipicker, it will store values in hidden input, which will be a string separated by commas, like this `"Su, Mo, Fr, Sa"`.
-You should split this string on the server (on client in some cases), to store these values in database or make it possible to use them in picker in the future (for example when user want to edit his choices).
+In case when html tags like `li` or `span` used in multipicker, it will store values in hidden input, which will be a string separated by commas, like this `"Su, Mo, Fr, Sa"`.
+You should split this string on the server (on client in some cases), to store these values in database or make it possible to use them in picker in the future (for example when user wants to edit his choices).
 
-In the case when you are using checkboxes or radiobuttons, selected items will check checkbox/radiobutton in standart html way, picker will modify your markup, and you will get html code like these:
+In case when you are using checkboxes or radiobuttons, selected items will check checkbox/radiobutton in standart html way. Picker will modify your markup, and you will get html code like these:
 
  multiple items for checkboxes
 ```html
@@ -89,11 +91,11 @@ or single selected item for radiobuttons
 </div>
 ```
 
-You can access selected values in standart way, as you would do with checkboxes and radiobuttons if plugin wouldn't been used.
+You can access selected values in standart way as you would do with checkboxes and radiobuttons if plugin wouldn't been used.
 
 ##### More Examples:
 
-Specify `isSingle`: true option to make only one element selectable like radiobuttons in html.
+Set `isSingle`: true to make only one element selectable like radiobuttons in html.
 ```javascript
 $("#days").multiPicker({
     selector: "li",
@@ -114,7 +116,7 @@ $("#days").multiPicker({
 ![Multipicker usage with prepopuated selectors  example](https://cloud.githubusercontent.com/assets/6073745/15856614/b153e19c-2cc7-11e6-9f24-ca9f62ec3e20.gif)
 
 
-Specify `cssOptions` -> `vertical = true` to make picker vertical
+To make your picker vertical just use `cssOptions` `vertical : true` property
 
 ```html
 <div id="days-vertical">
@@ -179,14 +181,14 @@ $("#programming-languages").multiPicker({
 	}
 });
 ```
-![Multipicker usage with checkboxes, `vertical = true`, and `quadratic = true` options example](https://cloud.githubusercontent.com/assets/6073745/15859318/c19e69c4-2cd5-11e6-8838-fa0b1fdcaf03.gif)
+![Multipicker usage with checkboxes, `vertical: true`, and `quadratic = true` options example](https://cloud.githubusercontent.com/assets/6073745/15859318/c19e69c4-2cd5-11e6-8838-fa0b1fdcaf03.gif)
 
 ##### Design customisation
-Plugin allows to use label tags to apply item text, and keep inputs value hidden from user. To apply custom design to multipicker you should use cssOptions (which is described in options section).
+Plugin allows to use label tags to apply item text and keep input's value hidden from user. To apply custom design to multipicker you should use cssOptions (which is described in options section).
 
 For Example, this picker's code
 
-![Multipicker usage with checkboxes, `vertical = true`, and `quadratic = true` options example](https://cloud.githubusercontent.com/assets/6073745/15861747/660ac798-2cde-11e6-8936-316838bca9d6.gif)
+![Multipicker usage with checkboxes, `vertical : true`, and `quadratic = true` options example](https://cloud.githubusercontent.com/assets/6073745/15861747/660ac798-2cde-11e6-8936-316838bca9d6.gif)
 
 will be:
 
