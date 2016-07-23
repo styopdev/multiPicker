@@ -1,5 +1,6 @@
 - [x] All new browsers compatability.
 - [x] Checkbox, radiobuttons support.
-- [ ] Disabled items.
+- [x] Disabled items.
 - [ ] Initialize using any jquery selector (not only an id), bulk initialize.
+- [ ] Make it possible to call: select / unselect / disable / enable / getSelected / reset - programmatically f.e. `$(...).multiPicker('select', [1, 2]);`
 - [ ] Write tests.
