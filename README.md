@@ -42,9 +42,10 @@ $("#days").multiPicker({ selector : "li" });
 
 ### Options
 * `selector` (required) - element type used inside of picker (html tag like `li` / `span` / `i`, `checkbox` / `radio` - for input type `checkbox` / `radio`)
-* `inputName` - name of input where checked values will be stored. Plugin will create new one if input does not exist (only for non checkbox / radio elements).
+* `inputName` - name of input where checked values will be stored. Plugin will create new one if input does not exist on the page (only for non checkbox / radio elements). If `inputName` doesn't specified, picker container's id will be used for input name. For avoiding conflict strongly recommend to provide valid, unique name. 
 * `valueSource` - source from where plugin should get value for element, possible values are: `index`, `text`, `data-*` attribute, default value is `index` (only for non checkbox / radio elements)
 * `prePopulate` - string or array of element(s) which should be selected by default (useful for edit mode), could be `index`, `data-*` or `text` of elements', must match to valueSource
+* `disabled` - string or array of element(s) which should be disabled (useful for edit mode), could be `index`, `data-*` or `text` of elements', must match to valueSource. Also its possible to disable elements using checkboxes' and radiobuttons' disabled attribute, like `<input type="checkbox" disabled="true">`
 * `isSingle` - allows user to select only one option from picker (like input[type="radio"] in pure html forms) default value is false (only for non checkbox / radio elements)
 * `cssOptions` - object with options described below:
 
