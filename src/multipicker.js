@@ -4,6 +4,7 @@
 			activeClass : "active",
 			valueSource : "index",
 			prePopulate : null,
+			disabled	: null,
 			cssOptions  : {
 				vertical  : false,
 				quadratic : false,
@@ -57,6 +58,9 @@
 		//	arguments: element as this, picker, isPrepopulated flag which is true only on init
 		this.select = function (picker, isPrepopulated) {
 			var selectedVal;
+			if ($(this).attr("data-disabled")) {
+				return;
+			}
 
 			if (picker.options.valueSource === "index") {
 				selectedVal = $(this).index();
@@ -135,7 +139,7 @@
 			if (MultiPicker.isArray(this.options.prePopulate) && this.options.prePopulate.length) {
 				for (var key in this.options.prePopulate) {
 					var searched = this.options.prePopulate[key];
-					var element = this.getPrepopulateSelector(searched);
+					var element = this.getElementSelector(searched);
 
 					if ($(element).index() < 0) {
 						console.warn("Multipicker: prepopulated element doesn`t found `%s`", searched);
@@ -144,16 +148,38 @@
 					}
 				}
 			} else {
-				var element = this.getPrepopulateSelector(this.options.prePopulate);
+				var element = this.getElementSelector(this.options.prePopulate);
 				if ($(element).index() < 0) {
 					console.warn("Multipicker: prepopulated element doesn`t found`%s`", this.options.prePopulate);
 				} else {
 					this.select.call(element, this, true);
 				}
 			}
-		};
+		},
 
-		this.getPrepopulateSelector = function (searched) {
+		this.disable = function () {
+			if (MultiPicker.isArray(this.options.disabled) && this.options.disabled.length) {
+				for (var key in this.options.disabled) {
+					var searched = this.options.disabled[key];
+					var element = this.getElementSelector(searched);
+
+					if ($(element).index() < 0) {
+						console.warn("Multipicker: prepopulated element doesn`t found `%s`", searched);
+					} else {
+						$(element).attr("data-disabled", true);
+					}
+				}
+			} else {
+				var element = this.getElementSelector(this.options.disabled);
+				if ($(element).index() < 0) {
+					console.warn("Multipicker: disabled element doesn`t found`%s`", this.options.disabled);
+				} else {
+					$(element).attr("data-disabled", true);
+				}
+			}
+		},
+
+		this.getElementSelector = function (searched) {
 			if (this.options.valueSource === "index" || !this.options.valueSource) {
 				return this.items.eq(searched);
 			} else if (this.options.valueSource.substring(0, 5) === "data-") {
@@ -267,11 +293,15 @@
 
 				// hide all labels inside picker
 				picker.selector.find("label").css("display", "none");
+				picker.options.disabled = picker.options.disabled || [];
 				$(picker.selector).find("input").each(function (index, item) {
 					var itemValue = $(item).val();
 					// use label text if provided else use input `value` attribute
 					var labelText = $("label[for='" + $(item).attr("id") + "']").text() || itemValue;
-					picker.selector.append("<span data-value='" + itemValue + "'>" + labelText + "</span>")
+					picker.selector.append("<span data-value='" + itemValue + "'>" + labelText + "</span>");
+					if ($(item).prop('disabled')) {
+						picker.options.disabled.push(itemValue);
+					}
 				});
 
 				picker.items = picker.selector.find("span");
@@ -284,7 +314,9 @@
 					picker.selector.addClass("more-padded-l");
 				}
 			} else {
-				// not chenkbox or radiobuttons used for picker
+				// not checkbox or radiobuttons used for picker
+				picker.options.inputName = picker.options.inputName || this.attr("id");
+
 				if (picker.type === "inline") {
 					if (!$("[name=" + picker.options.inputName + "]").length) {
 						picker.selector.after("<input type='hidden' name='" + picker.options.inputName + "'>");
@@ -320,10 +352,16 @@
 
 			if (picker.options.valueSource && !(picker.options.valueSource !== "index" || picker.options.valueSource !== "text" || picker.options.valueSource.substring(0, 5) === "data-")) {
 				throw "Invalid value source";
+			} else if (picker.options.valueSource === "data-disabled") {
+				throw "`data-disabled` attribute is reserved, choose another name";
 			}
 
-			if (picker.options.prePopulate) {
+			if (picker.options.prePopulate || picker.options.prePopulate === 0) {
 				picker.prePopulate();
+			}
+
+			if (picker.options.disabled || picker.options.disabled === 0) {
+				picker.disable();
 			}
 
 			picker.selector.attr("ondragstart", 'return false');
