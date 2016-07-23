@@ -293,7 +293,14 @@
 
 				// hide all labels inside picker
 				picker.selector.find("label").css("display", "none");
-				picker.options.disabled = picker.options.disabled || [];
+
+				if (picker.options.disabled) {
+					if (!MultiPicker.isArray(picker.options.disabled)) {
+						picker.options.disabled = [picker.options.disabled];
+					}
+				} else {
+				 	picker.options.disabled = [];
+				}
 				$(picker.selector).find("input").each(function (index, item) {
 					var itemValue = $(item).val();
 					// use label text if provided else use input `value` attribute
