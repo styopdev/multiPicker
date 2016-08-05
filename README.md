@@ -42,7 +42,7 @@ $("#days").multiPicker({ selector : "li" });
 
 ### Options
 * `selector` (required) - element type used inside of picker (html tag like `li` / `span` / `i`, `checkbox` / `radio` - for input type `checkbox` / `radio`)
-* `inputName` - name of input where checked values will be stored. Plugin will create new one if input does not exist on the page (only for non checkbox / radio elements). If `inputName` doesn't specified, picker container's id will be used for input name. For avoiding conflict strongly recommend to provide valid, unique name. 
+* `inputName` - name of input where checked values will be stored. Plugin will create new one if input does not exist on the page (only for non checkbox / radio elements). If `inputName` doesn't specified, picker container's id will be used for input name. For avoiding conflict strongly recommend to provide valid, unique name.
 * `valueSource` - source from where plugin should get value for element, possible values are: `index`, `text`, `data-*` attribute, default value is `index` (only for non checkbox / radio elements)
 * `prePopulate` - string or array of element(s) which should be selected by default (useful for edit mode), could be `index`, `data-*` or `text` of elements', must match to valueSource
 * `disabled` - string or array of element(s) which should be disabled (useful for edit mode), could be `index`, `data-*` or `text` of elements', must match to valueSource. Also its possible to disable elements using checkboxes' and radiobuttons' disabled attribute, like `<input type="checkbox" disabled="true">`
@@ -59,6 +59,11 @@ $("#days").multiPicker({ selector : "li" });
 | element   | empty object   | css styles (key / value js object) will be assigned to the elements inside of picker |
 | selected  | empty object   | css styles (key / value js object) will be assigned to the selected elements inside of picker |
 | hover     | empty object   | css styles (key / value js object) will be assigned to the hover elements inside of picker |             |  
+
+#### Events
+* `onInit` - called when picker has finished initialization, doesn't receive any argument
+* `onSelect` - called when item selected, function receive 2 arguments: selected item and it's value
+* `onUnselect` - called when item deselected, function receive 2 arguments: deselected item and it's value
 
 #### Usage with checkboxes and radiobuttons.
 In case when html tags like `li` or `span` used in multipicker, it will store values in hidden input, which will be a string separated by commas, like this `"Su, Mo, Fr, Sa"`.
