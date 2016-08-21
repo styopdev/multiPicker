@@ -127,6 +127,19 @@
 			}
 		};
 
+		this.getSelected = function () {
+			if (this.type === "inline") {
+				return getSelected(this.selector.find('active'), this.input.val());
+			} else {
+				var elements = this.selector.find("input[value='" + $(el).attr("data-value") + "']").attr("checked");
+				var values = [];
+				elements.each(function (index, elem) {
+					values.push($(elem).val());
+				});
+				return getSelected(elements, values);
+			}
+		};
+
 		this.clear = function () {
 			if (this.type === "inline") {
 				this.input.val("");
@@ -190,13 +203,44 @@
 				return this.selector.find(this.options.selector + ":contains('" + searched + "')");
 			}
 		};
+		this.multiPicker = function (method, values, cb) {
+			if (typeof values === 'function') {
+				cb = values;
+			}
+			switch (opt) {
+				case 'select' :
+				case 'unselect' :
+					if (!values) {
+						console.warn('Empty select/unselect elements');
+						return;
+					}
+					this.forEach(function (picker) {
+						values.forEach(function(value) {
+							picker.select.call(picker.getElementSelector(value), picker, false);
+						});
+					});
+					break;
+				case 'enable' :
+				case 'disable' :
+					if (!values) {
+						console.warn('Empty enable/disable elements');
+					}
+					this.forEach(function (picker) {
+						picker.disable.call(value);
+					});
+				case 'clear' :
+					this.clear();
+				case 'getSelected' :
+					this.getSelected(cb);
+			}
+		};
 	};
 
 	MultiPicker.isArray = function (obj) {
 		if (Object.prototype.toString.call(obj) === '[object Array]') {
 			return true;
 		}
-	}
+	};
 
 	MultiPicker.updateClasses = function (item, className) {
 		if ($(item).hasClass(className)) {
@@ -382,32 +426,9 @@
 					if (picker.options.onInit && typeof picker.options.onInit === "function") {
 						picker.options.onInit();
 					}
-					pickers.push({});
+					pickers.push(picker);
 				});
 				return pickers;
-			} else {
-				switch (opt) {
-					case 'select' :
-					case 'unselect' :
-						if (!values) {
-							console.warn('Empty select/unselect elements');
-							return;
-						}
-						this.forEach(function (picker) {
-							values.forEach(function(value) {
-								picker.select.call(picker.getElementSelector(value), picker, false);
-							});
-						});
-						break;
-					case 'enable':
-					case 'disable':
-						if (!values) {
-							console.warn('Empty enable/disable elements');
-						}
-						this.forEach(function (picker) {
-							picker.disable.call(value);
-						});
-				}
 			}
 		}
 	});
