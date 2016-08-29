@@ -75,6 +75,9 @@
 				$(this).addClass(picker.options.activeClass);
 
 				picker.addValue(this, selectedVal);
+				if (picker.options.onSelect && typeof picker.options.onSelect === "function" && !isPrepopulated) {
+					picker.options.onSelect(this, selectedVal);
+				}
 				return;
 			}
 			if ($(this).hasClass(picker.options.activeClass)) {
