@@ -9,7 +9,13 @@
 	border-radius: 30px;
 	display: inline-block;
 	width: auto;
-	padding: 4px
+	padding: 4px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .checklist > * {
 	display: inline-block;
@@ -46,6 +52,9 @@
 	border-top-left-radius: 0;
 	border-right: 2px solid transparent;
 	border-left: 2px solid transparent;
+}
+.checklist [data-disabled="true"] {
+	cursor: not-allowed;
 }
 .checklist.vertical {
 	width: 38px;
