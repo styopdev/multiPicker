@@ -72,7 +72,7 @@
 				selectedVal = $(this).val();
 			}
 
-			if (picker.options.isSingle) {
+		 	if (picker.options.isSingle) {
 				picker.clear();
 
 				$(this).siblings("." + picker.options.activeClass).removeClass();
@@ -127,16 +127,16 @@
 			}
 		};
 
-		this.getSelected = function () {
+		this.getSelected = function (cb) {
 			if (this.type === "inline") {
-				return getSelected(this.selector.find('active'), this.input.val());
+				return cb(this.selector.find('.active'), this.input.val());
 			} else {
-				var elements = this.selector.find("input[value='" + $(el).attr("data-value") + "']").attr("checked");
+				var elements = this.selector.find("input:checked");
 				var values = [];
 				elements.each(function (index, elem) {
 					values.push($(elem).val());
 				});
-				return getSelected(elements, values);
+				return cb(elements, values);
 			}
 		};
 
@@ -201,37 +201,6 @@
 				return this.selector.find(this.options.selector + "[" + this.options.valueSource + "='" + searched + "']");
 			} else if (this.options.valueSource === "text") {
 				return this.selector.find(this.options.selector + ":contains('" + searched + "')");
-			}
-		};
-		this.multiPicker = function (method, values, cb) {
-			if (typeof values === 'function') {
-				cb = values;
-			}
-			switch (opt) {
-				case 'select' :
-				case 'unselect' :
-					if (!values) {
-						console.warn('Empty select/unselect elements');
-						return;
-					}
-					this.forEach(function (picker) {
-						values.forEach(function(value) {
-							picker.select.call(picker.getElementSelector(value), picker, false);
-						});
-					});
-					break;
-				case 'enable' :
-				case 'disable' :
-					if (!values) {
-						console.warn('Empty enable/disable elements');
-					}
-					this.forEach(function (picker) {
-						picker.disable.call(value);
-					});
-				case 'clear' :
-					this.clear();
-				case 'getSelected' :
-					this.getSelected(cb);
 			}
 		};
 	};
@@ -323,6 +292,39 @@
 		$("head").append("<style type='text/css'>" + styles + "</style>");
 	};
 
+	MultiPicker.API = function (method, values, cb) {
+		this.forEach(function (picker) {
+			if (typeof values === 'function') {
+				cb = values;
+			}
+			switch (method) {
+				case 'select' :
+				case 'unselect' :
+					if (!values) {
+						console.warn('Empty select/unselect elements');
+						return;
+					}
+					values.forEach(function(value) {
+						picker.select.call(picker.getElementSelector(value), picker, false);
+					});
+					break;
+				case 'enable' :
+				case 'disable' :
+					if (!values) {
+						console.warn('Empty enable/disable elements');
+					}
+					picker.disable.call(picker, values);
+					break;
+				case 'clear' :
+					picker.clear();
+					break;
+				case 'getSelected' :
+					picker.getSelected(cb);
+					break;
+			}
+		});
+	};
+
 	$.fn.extend({
 		multiPicker: function (opt, values) {
 			if (typeof opt !== "string") {
@@ -337,8 +339,9 @@
 						// in the case when checkbox / radiobutton used for picker, hide them and append new
 						// `span` tags for each input, with the same value stored in `data-value` attribute
 						picker.type = picker.options.selector;
-						if (picker.type === "radio")
+						if (picker.type === "radio") {
 							picker.options.isSingle = true;
+						}
 
 						// hide all labels inside picker
 						picker.selector.find("label").css("display", "none");
@@ -428,6 +431,8 @@
 					}
 					pickers.push(picker);
 				});
+
+				pickers.multiPicker = MultiPicker.API;
 				return pickers;
 			}
 		}
