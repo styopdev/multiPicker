@@ -20,7 +20,8 @@
 		this.selector  = null;
 		this.isPressed = false;
 		this.lastElem  = "";
-
+		this.mouseUpTimer;
+		
 		this.setEvendHandlers = function () {
 			var picker = this;
 			this.items.click(function () {
@@ -35,7 +36,10 @@
 			});
 
 			this.selector.mousedown(function (e) {
-				picker.isPressed = true;
+				picker.isPressed = false;
+				picker.mouseUpTimer = setTimeout(function () {
+					picker.isPressed = true;
+				}, 100)
 			});
 
 			this.selector.mouseleave(function (e) {
@@ -51,6 +55,7 @@
 		};
 
 		this.finishHover = function (e) {
+			clearTimeout(this.mouseUpTimer);
 			this.lastElem = null;
 			this.isPressed = false;
 		};
