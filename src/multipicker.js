@@ -24,7 +24,7 @@
 		this.setEvendHandlers = function () {
 			var picker = this;
 			this.items.click(function () {
-				picker.select.call(this, picker, false);
+				picker.select.call(this, picker, false, true);
 			});
 
 			this.items.mousemove(function (e) {
@@ -47,7 +47,7 @@
 
 		this.hover = function (e) {
 			var element = $(e.target);
-			this.select.call(element, this, false);
+			this.select.call(element, this, false, true);
 		};
 
 		this.finishHover = function (e) {
@@ -56,7 +56,7 @@
 		};
 
 		//	arguments: element as this, picker, isPrepopulated flag which is true only on init
-		this.select = function (picker, isPrepopulated) {
+		this.select = function (picker, isPrepopulated, isSelect) {
 			var selectedVal;
 			if ($(this).attr("data-disabled")) {
 				return;
@@ -81,7 +81,8 @@
 				picker.addValue(this, selectedVal);
 				return;
 			}
-			if ($(this).hasClass(picker.options.activeClass)) {
+
+			if ($(this).hasClass(picker.options.activeClass) || !isSelect) {
 				// unselect case
 				$(this).removeClass();
 
@@ -143,7 +144,9 @@
 		this.clear = function () {
 			if (this.type === "inline") {
 				this.input.val("");
+				this.selector.find(".active").removeClass("active");
 			} else {
+				this.selector.find("input").removeClass("active");
 				this.selector.find("input").attr("checked", false);
 			}
 		};
@@ -157,7 +160,7 @@
 					if ($(element).index() < 0) {
 						console.warn("Multipicker: prepopulated element doesn`t found `%s`", searched);
 					} else {
-						this.select.call(element, this, true);
+						this.select.call(element, this, true, true);
 					}
 				}
 			} else {
@@ -165,12 +168,12 @@
 				if ($(element).index() < 0) {
 					console.warn("Multipicker: prepopulated element doesn`t found`%s`", this.options.prePopulate);
 				} else {
-					this.select.call(element, this, true);
+					this.select.call(element, this, true, true);
 				}
 			}
 		},
 
-		this.disable = function (disableItems) {
+		this.disable = function (disableItems, isEnable) {
 			if (MultiPicker.isArray(disableItems) && disableItems.length) {
 				for (var key in disableItems) {
 					var searched = disableItems[key];
@@ -179,9 +182,11 @@
 					if ($(element).index() < 0) {
 						console.warn("Multipicker: prepopulated element doesn`t found `%s`", searched);
 					} else {
-						$(element).attr("data-disabled", function(_, attr) { 
-							return !attr 
-						});
+						if (isEnable) {
+							$(element).removeAttr("data-disabled");
+						} else {
+							$(element).attr("data-disabled", true);
+						}
 					}
 				}
 			} else {
@@ -189,7 +194,11 @@
 				if ($(element).index() < 0) {
 					console.warn("Multipicker: disabled element doesn`t found`%s`", disableItems);
 				} else {
-					$(element).attr("data-disabled", true);
+					if (isEnable) {
+						$(element).removeAttr("data-disabled");
+					} else {
+						$(element).attr("data-disabled", true);
+					}
 				}
 			}
 		},
@@ -294,35 +303,42 @@
 
 	MultiPicker.API = function (method, values, cb) {
 		this.forEach(function (picker) {
-			if (typeof values === 'function') {
+			if (typeof values === "function") {
 				cb = values;
+			} else if (!MultiPicker.isArray(values)) {
+				values = [values];
+			}
+			if (method !== "getSelected" && method != "clear") {
+				if (!values) {
+					console.warn("Empty enable/disable elements");
+				}
 			}
 			switch (method) {
-				case 'select' :
-				case 'unselect' :
-					if (!values) {
-						console.warn('Empty select/unselect elements');
-						return;
-					}
+				case "select" :
 					values.forEach(function(value) {
-						picker.select.call(picker.getElementSelector(value), picker, false);
+						picker.select.call(picker.getElementSelector(value), picker, false, true);
 					});
 					break;
-				case 'enable' :
-				case 'disable' :
-					if (!values) {
-						console.warn('Empty enable/disable elements');
-					}
-					picker.disable.call(picker, values);
+				case "unselect" :
+					values.forEach(function(value) {
+						picker.select.call(picker.getElementSelector(value), picker, false, false);
+					});
 					break;
-				case 'clear' :
+				case "enable" :
+					picker.disable.call(picker, values, true);
+					break;
+				case "disable" :
+					picker.disable.call(picker, values, false);
+					break;
+				case "clear" :
 					picker.clear();
 					break;
-				case 'getSelected' :
+				case "getSelected" :
 					picker.getSelected(cb);
 					break;
 			}
 		});
+		return this;
 	};
 
 	$.fn.extend({
@@ -419,8 +435,8 @@
 						picker.prePopulate();
 					}
 
-					if (picker.options.disabled || picker.options.disabled === 0) {
-						picker.disable(picker.options.disabled);
+					if (MultiPicker.isArray(picker.options.disabled) && picker.options.disabled.length || picker.options.disabled && !MultiPicker.isArray(picker.options.disabled) || picker.options.disabled === 0) {
+						picker.disable(picker.options.disabled, false);
 					}
 
 					picker.selector.attr("ondragstart", 'return false');
