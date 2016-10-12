@@ -24,7 +24,7 @@
 		this.setEvendHandlers = function () {
 			var picker = this;
 			this.items.click(function () {
-				picker.select.call(this, picker, false, true);
+				picker.select.call(this, picker, false);
 			});
 
 			this.items.mousemove(function (e) {
@@ -47,7 +47,7 @@
 
 		this.hover = function (e) {
 			var element = $(e.target);
-			this.select.call(element, this, false, true);
+			this.select.call(element, this, false);
 		};
 
 		this.finishHover = function (e) {
@@ -56,7 +56,7 @@
 		};
 
 		//	arguments: element as this, picker, isPrepopulated flag which is true only on init
-		this.select = function (picker, isPrepopulated, isSelect) {
+		this.select = function (picker, isPrepopulated, isUnselect) {
 			var selectedVal;
 			if ($(this).attr("data-disabled")) {
 				return;
@@ -82,7 +82,7 @@
 				return;
 			}
 
-			if ($(this).hasClass(picker.options.activeClass) || !isSelect) {
+			if ((typeof isUnselect !== "undefined" && isUnselect === true) || (typeof isUnselect === "undefined" && $(this).hasClass(picker.options.activeClass))) {
 				// unselect case
 				$(this).removeClass();
 
@@ -160,7 +160,7 @@
 					if ($(element).index() < 0) {
 						console.warn("Multipicker: prepopulated element doesn`t found `%s`", searched);
 					} else {
-						this.select.call(element, this, true, true);
+						this.select.call(element, this, true);
 					}
 				}
 			} else {
@@ -168,7 +168,7 @@
 				if ($(element).index() < 0) {
 					console.warn("Multipicker: prepopulated element doesn`t found`%s`", this.options.prePopulate);
 				} else {
-					this.select.call(element, this, true, true);
+					this.select.call(element, this, true);
 				}
 			}
 		},
@@ -316,12 +316,18 @@
 			switch (method) {
 				case "select" :
 					values.forEach(function(value) {
-						picker.select.call(picker.getElementSelector(value), picker, false, true);
+						var elSelector = picker.getElementSelector(value);
+						if (elSelector.length) {
+							picker.select.call(elSelector, picker, false, false);
+						}
 					});
 					break;
 				case "unselect" :
 					values.forEach(function(value) {
-						picker.select.call(picker.getElementSelector(value), picker, false, false);
+						var elSelector = picker.getElementSelector(value);
+						if (elSelector.length) {
+							picker.select.call(elSelector, picker, false, true);
+						}
 					});
 					break;
 				case "enable" :
@@ -394,7 +400,7 @@
 
 						if (picker.type === "inline") {
 							if (!$("[name=" + picker.options.inputName + "]").length) {
-								picker.selector.after("<input type='hidden' name='" + picker.options.inputName + "'>");
+								picker.selector.after("<input type='text' name='" + picker.options.inputName + "'>");
 								picker.input = $("[name=" + picker.options.inputName + "]");
 							} else {
 								picker.input = $("[name=" + picker.options.inputName + "]");
