@@ -414,7 +414,7 @@
 
 						if (picker.type === "inline") {
 							if (!$("[name=" + picker.options.inputName + "]").length) {
-								picker.selector.after("<input type='text' name='" + picker.options.inputName + "'>");
+								picker.selector.after("<input type='hidden' name='" + picker.options.inputName + "'>");
 								picker.input = $("[name=" + picker.options.inputName + "]");
 							} else {
 								picker.input = $("[name=" + picker.options.inputName + "]");
