@@ -61,7 +61,7 @@
 		};
 
 		//	arguments: element as this, picker, isPrepopulated flag which is true only on init
-		this.select = function (picker, isPrepopulated) {
+		this.select = function (picker, isPrepopulated, isUnselect) {
 			var selectedVal;
 			if ($(this).attr("data-disabled")) {
 				return;
@@ -77,7 +77,7 @@
 				selectedVal = $(this).val();
 			}
 
-			if (picker.options.isSingle) {
+		 	if (picker.options.isSingle) {
 				picker.clear();
 
 				$(this).siblings("." + picker.options.activeClass).removeClass();
@@ -89,8 +89,12 @@
 				}
 				return;
 			}
-			if ($(this).hasClass(picker.options.activeClass)) {
+
+			if ((typeof isUnselect !== "undefined" && isUnselect === true) || (typeof isUnselect === "undefined" && $(this).hasClass(picker.options.activeClass))) {
 				// unselect case
+				if (!$(this).hasClass(picker.options.activeClass)) {
+					return;
+				}
 				$(this).removeClass();
 
 				picker.removeValue(this, selectedVal);
@@ -100,6 +104,9 @@
 				}
 			} else {
 				// select case
+				if ($(this).hasClass(picker.options.activeClass)) {
+					return;
+				}
 				$(this).addClass(picker.options.activeClass);
 
 				picker.addValue(this, selectedVal);
@@ -135,10 +142,25 @@
 			}
 		};
 
+		this.getValue = function (cb) {
+			if (this.type === "inline") {
+				return cb(this.input.val());
+			} else {
+				var values = [];
+
+				this.selector.find("input[checked='checked']").each(function (index, elem) {
+					values.push($(elem).val());
+				});
+				return cb(values);
+			}
+		};
+
 		this.clear = function () {
 			if (this.type === "inline") {
 				this.input.val("");
+				this.selector.find(".active").removeClass();
 			} else {
+				this.selector.find(".active").removeClass();
 				this.selector.find("input").attr("checked", false);
 			}
 		};
@@ -165,24 +187,32 @@
 			}
 		},
 
-		this.disable = function () {
-			if (MultiPicker.isArray(this.options.disabled) && this.options.disabled.length) {
-				for (var key in this.options.disabled) {
-					var searched = this.options.disabled[key];
+		this.disable = function (disableItems, isEnable) {
+			if (MultiPicker.isArray(disableItems) && disableItems.length) {
+				for (var key in disableItems) {
+					var searched = disableItems[key];
 					var element = this.getElementSelector(searched);
 
 					if ($(element).index() < 0) {
 						console.warn("Multipicker: prepopulated element doesn`t found `%s`", searched);
 					} else {
-						$(element).attr("data-disabled", true);
+						if (isEnable) {
+							$(element).removeAttr("data-disabled");
+						} else {
+							$(element).attr("data-disabled", true);
+						}
 					}
 				}
 			} else {
-				var element = this.getElementSelector(this.options.disabled);
+				var element = this.getElementSelector(disableItems);
 				if ($(element).index() < 0) {
-					console.warn("Multipicker: disabled element doesn`t found`%s`", this.options.disabled);
+					console.warn("Multipicker: disabled element doesn`t found`%s`", disableItems);
 				} else {
-					$(element).attr("data-disabled", true);
+					if (isEnable) {
+						$(element).removeAttr("data-disabled");
+					} else {
+						$(element).attr("data-disabled", true);
+					}
 				}
 			}
 		},
@@ -202,7 +232,7 @@
 		if (Object.prototype.toString.call(obj) === '[object Array]') {
 			return true;
 		}
-	}
+	};
 
 	MultiPicker.updateClasses = function (item, className) {
 		if ($(item).hasClass(className)) {
@@ -285,108 +315,162 @@
 		$("head").append("<style type='text/css'>" + styles + "</style>");
 	};
 
-	$.fn.extend({
-		multiPicker: function (opt) {
-			$(this).each(function(index, elem) {
-				var picker = new MultiPicker();
-				// init picker instance
-				picker.options 	= Object.assign(picker.options, opt);
-				picker.selector = $(elem);
-
-				if (picker.options.selector === "checkbox" || picker.options.selector === "radio") {
-					// in the case when checkbox / radiobutton used for picker, hide them and append new
-					// `span` tags for each input, with the same value stored in `data-value` attribute
-					picker.type = picker.options.selector;
-					if (picker.type === "radio")
-						picker.options.isSingle = true;
-
-					// hide all labels inside picker
-					picker.selector.find("label").css("display", "none");
-
-					if (picker.options.disabled) {
-						if (!MultiPicker.isArray(picker.options.disabled)) {
-							picker.options.disabled = [picker.options.disabled];
-						}
-					} else {
-					 	picker.options.disabled = [];
-					}
-					$(picker.selector).find("input").each(function (index, item) {
-						var itemValue = $(item).val();
-						// use label text if provided else use input `value` attribute
-						var labelText = $("label[for='" + $(item).attr("id") + "']").text() || itemValue;
-						picker.selector.append("<span data-value='" + itemValue + "'>" + labelText + "</span>");
-						if ($(item).prop('disabled')) {
-							picker.options.disabled.push(itemValue);
+	MultiPicker.API = function (method, values, cb) {
+		this.forEach(function (picker) {
+			if (typeof values === "function") {
+				cb = values;
+			} else if (!MultiPicker.isArray(values)) {
+				values = [values];
+			}
+			if (method !== "getValue" && method != "clear") {
+				if (!values) {
+					console.warn("Empty enable/disable elements");
+				}
+			}
+			switch (method) {
+				case "select" :
+					values.forEach(function(value) {
+						var elSelector = picker.getElementSelector(value);
+						if (elSelector.length) {
+							picker.select.call(elSelector, picker, false, false);
 						}
 					});
+					break;
+				case "unselect" :
+					values.forEach(function(value) {
+						var elSelector = picker.getElementSelector(value);
+						if (elSelector.length) {
+							picker.select.call(elSelector, picker, false, true);
+						}
+					});
+					break;
+				case "enable" :
+					picker.disable.call(picker, values, true);
+					break;
+				case "disable" :
+					picker.disable.call(picker, values, false);
+					break;
+				case "clear" :
+					picker.clear();
+					break;
+				case "get" :
+					picker.getValue(cb);
+					break;
+			}
+		});
+		return this;
+	};
 
-					picker.items = picker.selector.find("span");
-					picker.options.valueSource = "data-value";
-					picker.options.selector = "span";
+	$.fn.extend({
+		multiPicker: function (opt, values) {
+			if (typeof opt !== "string") {
+				var pickers = [];
+				$(this).each(function(index, elem) {
+					var picker = new MultiPicker();
+					// init picker instance
+					picker.options 	= Object.assign(picker.options, opt);
+					picker.selector = $(elem);
+
+					if (picker.options.selector === "checkbox" || picker.options.selector === "radio") {
+						// in the case when checkbox / radiobutton used for picker, hide them and append new
+						// `span` tags for each input, with the same value stored in `data-value` attribute
+						picker.type = picker.options.selector;
+						if (picker.type === "radio") {
+							picker.options.isSingle = true;
+						}
+
+						// hide all labels inside picker
+						picker.selector.find("label").css("display", "none");
+
+						if (picker.options.disabled) {
+							if (!MultiPicker.isArray(picker.options.disabled)) {
+								picker.options.disabled = [picker.options.disabled];
+							}
+						} else {
+						 	picker.options.disabled = [];
+						}
+						$(picker.selector).find("input").each(function (index, item) {
+							var itemValue = $(item).val();
+							// use label text if provided else use input `value` attribute
+							var labelText = $("label[for='" + $(item).attr("id") + "']").text() || itemValue;
+							picker.selector.append("<span data-value='" + itemValue + "'>" + labelText + "</span>");
+							if ($(item).prop('disabled')) {
+								picker.options.disabled.push(itemValue);
+							}
+						});
+
+						picker.items = picker.selector.find("span");
+						picker.options.valueSource = "data-value";
+						picker.options.selector = "span";
+
+						if (picker.options.cssOptions.vertical) {
+							picker.selector.addClass("more-padded-t");
+						} else {
+							picker.selector.addClass("more-padded-l");
+						}
+					} else {
+						// non-checkbox/radiobuttons used for picker
+						picker.options.inputName = picker.options.inputName || picker.selector.attr("id");
+
+						if (picker.type === "inline") {
+							if (!$("[name=" + picker.options.inputName + "]").length) {
+								picker.selector.after("<input type='hidden' name='" + picker.options.inputName + "'>");
+								picker.input = $("[name=" + picker.options.inputName + "]");
+							} else {
+								picker.input = $("[name=" + picker.options.inputName + "]");
+							}
+						}
+						picker.items = picker.selector.find(picker.options.selector);
+					}
+
+					picker.selector.addClass("checklist");
 
 					if (picker.options.cssOptions.vertical) {
-						picker.selector.addClass("more-padded-t");
-					} else {
-						picker.selector.addClass("more-padded-l");
+						picker.selector.addClass("vertical");
 					}
-				} else {
-					// non-checkbox/radiobuttons used for picker
-					picker.options.inputName = picker.options.inputName || picker.selector.attr("id");
 
-					if (picker.type === "inline") {
-						if (!$("[name=" + picker.options.inputName + "]").length) {
-							picker.selector.after("<input type='hidden' name='" + picker.options.inputName + "'>");
-							picker.input = $("[name=" + picker.options.inputName + "]");
-						} else {
-							picker.input = $("[name=" + picker.options.inputName + "]");
-						}
+					if (picker.options.cssOptions.size) {
+						picker.selector.addClass(picker.options.cssOptions.size);
 					}
-					picker.items = picker.selector.find(picker.options.selector);
-				}
 
-				picker.selector.addClass("checklist");
+					if (picker.options.cssOptions.quadratic) {
+						picker.selector.addClass("quadratic");
+					}
 
-				if (picker.options.cssOptions.vertical) {
-					picker.selector.addClass("vertical");
-				}
+					if (picker.options.cssOptions.picker || picker.options.cssOptions.element || picker.options.cssOptions.hover || picker.options.cssOptions.selected) {
+						MultiPicker.generateStyles(picker.selector.attr("id"), picker.options.cssOptions);
+					}
 
-				if (picker.options.cssOptions.size) {
-					picker.selector.addClass(picker.options.cssOptions.size);
-				}
+					if (picker.options.prePopulate && MultiPicker.isArray(picker.options.prePopulate) && picker.options.prePopulate.length > 1 && picker.options.isSingle) {
+						throw "Can not prePopulate more then 1 item, with `isSingle` true option";
+					}
 
-				if (picker.options.cssOptions.quadratic) {
-					picker.selector.addClass("quadratic");
-				}
+					if (picker.options.valueSource && !(picker.options.valueSource !== "index" || picker.options.valueSource !== "text" || picker.options.valueSource.substring(0, 5) === "data-")) {
+						throw "Invalid value source";
+					} else if (picker.options.valueSource === "data-disabled") {
+						throw "`data-disabled` attribute is reserved, choose another name";
+					}
 
-				if (picker.options.cssOptions.picker || picker.options.cssOptions.element || picker.options.cssOptions.hover || picker.options.cssOptions.selected) {
-					MultiPicker.generateStyles(picker.selector.attr("id"), picker.options.cssOptions);
-				}
+					if (picker.options.prePopulate || picker.options.prePopulate === 0) {
+						picker.prePopulate();
+					}
 
-				if (picker.options.prePopulate && MultiPicker.isArray(picker.options.prePopulate) && picker.options.prePopulate.length > 1 && picker.options.isSingle) {
-					throw "Can not prePopulate more then 1 item, with `isSingle` true option";
-				}
+					if (MultiPicker.isArray(picker.options.disabled) && picker.options.disabled.length || picker.options.disabled && !MultiPicker.isArray(picker.options.disabled) || picker.options.disabled === 0) {
+						picker.disable(picker.options.disabled, false);
+					}
 
-				if (picker.options.valueSource && !(picker.options.valueSource !== "index" || picker.options.valueSource !== "text" || picker.options.valueSource.substring(0, 5) === "data-")) {
-					throw "Invalid value source";
-				} else if (picker.options.valueSource === "data-disabled") {
-					throw "`data-disabled` attribute is reserved, choose another name";
-				}
+					picker.selector.attr("ondragstart", 'return false');
+					picker.setEvendHandlers();
 
-				if (picker.options.prePopulate || picker.options.prePopulate === 0) {
-					picker.prePopulate();
-				}
+					if (picker.options.onInit && typeof picker.options.onInit === "function") {
+						picker.options.onInit();
+					}
+					pickers.push(picker);
+				});
 
-				if (picker.options.disabled || picker.options.disabled === 0) {
-					picker.disable();
-				}
-
-				picker.selector.attr("ondragstart", 'return false');
-				picker.setEvendHandlers();
-
-				if (picker.options.onInit && typeof picker.options.onInit === "function") {
-					picker.options.onInit();
-				}
-			});
+				pickers.multiPicker = MultiPicker.API;
+				return pickers;
+			}
 		}
 	});
 })(jQuery);
