@@ -84,6 +84,9 @@
 
 			if ((typeof isUnselect !== "undefined" && isUnselect === true) || (typeof isUnselect === "undefined" && $(this).hasClass(picker.options.activeClass))) {
 				// unselect case
+				if (!$(this).hasClass(picker.options.activeClass)) {
+					return;
+				}
 				$(this).removeClass();
 
 				picker.removeValue(this, selectedVal);
@@ -93,6 +96,9 @@
 				}
 			} else {
 				// select case
+				if ($(this).hasClass(picker.options.activeClass)) {
+					return;
+				}
 				$(this).addClass(picker.options.activeClass);
 
 				picker.addValue(this, selectedVal);
