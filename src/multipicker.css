@@ -1,7 +1,7 @@
-::selection {
+.checklist::selection {
   	background: none;
 }
-::-moz-selection {
+.checklist::-moz-selection {
   	background: none;
 }
 .checklist {
