@@ -134,16 +134,16 @@
 			}
 		};
 
-		this.getSelected = function (cb) {
+		this.getValue = function (cb) {
 			if (this.type === "inline") {
-				return cb(this.selector.find('.active'), this.input.val());
+				return cb(this.input.val());
 			} else {
-				var elements = this.selector.find("input:checked");
 				var values = [];
-				elements.each(function (index, elem) {
+
+				this.selector.find("input[checked='checked']").each(function (index, elem) {
 					values.push($(elem).val());
 				});
-				return cb(elements, values);
+				return cb(values);
 			}
 		};
 
@@ -152,7 +152,7 @@
 				this.input.val("");
 				this.selector.find(".active").removeClass("active");
 			} else {
-				this.selector.find("input").removeClass("active");
+				this.selector.find(".active").removeClass("active");
 				this.selector.find("input").attr("checked", false);
 			}
 		};
@@ -314,7 +314,7 @@
 			} else if (!MultiPicker.isArray(values)) {
 				values = [values];
 			}
-			if (method !== "getSelected" && method != "clear") {
+			if (method !== "getValue" && method != "clear") {
 				if (!values) {
 					console.warn("Empty enable/disable elements");
 				}
@@ -345,8 +345,8 @@
 				case "clear" :
 					picker.clear();
 					break;
-				case "getSelected" :
-					picker.getSelected(cb);
+				case "get" :
+					picker.getValue(cb);
 					break;
 			}
 		});
