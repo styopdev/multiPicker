@@ -150,9 +150,9 @@
 		this.clear = function () {
 			if (this.type === "inline") {
 				this.input.val("");
-				this.selector.find(".active").removeClass("active");
+				this.selector.find(".active").removeClass();
 			} else {
-				this.selector.find(".active").removeClass("active");
+				this.selector.find(".active").removeClass();
 				this.selector.find("input").attr("checked", false);
 			}
 		};
