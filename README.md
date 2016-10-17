@@ -70,27 +70,27 @@ Methods are implemented in bootstrap.js style - `.multiPicker("methodname").mult
 
 * `get` - get picker's current value, receive callback style function as an argument.
 ```js
-$("days").multiPicker({ selector: 'li' }).multipicker('get', function (value) { /* value available here */ });
+$("#days").multiPicker({ selector: 'li' }).multiPicker('get', function (value) { /* value available here */ });
 ```
 * `select` - select elements, receive array or string of element(s) values which should be selected.
 ```js
-$("days").multiPicker({ selector: 'li' }).multipicker('select', [1, 2]);
+$("#days").multiPicker({ selector: 'li' }).multiPicker('select', [1, 2]);
 ```
 * `unselect` - select elements, receive array or string of element(s) values which should be unselected.
 ```js
-$("days").multiPicker({ selector: 'li' }).multipicker('unselect', "2");
+$("#days").multiPicker({ selector: 'li' }).multiPicker('unselect', "2");
 ```
 * `disable` - disable elements, receive array or string of element(s) values which should be disabled.
 ```js
-$("days").multiPicker({ selector: 'li' }).multipicker('disable', [1, 2]);
+$("#days").multiPicker({ selector: 'li' }).multiPicker('disable', [1, 2]);
 ```
 * `enable` - enable elements, receive array or string of element(s) values which should be enabled
 ```js
-$("days").multiPicker({ selector: 'li' }).multipicker('enable', [1, 2]);
+$("#days").multiPicker({ selector: 'li' }).multiPicker('enable', [1, 2]);
 ```
 * `clear` - reset picker, doesn't receive any argument.
 ```js
-$("days").multiPicker({ selector: 'li' }).multipicker('clear');
+$("#days").multiPicker({ selector: 'li' }).multiPicker('clear');
 ```
 
 #### Usage with checkboxes and radiobuttons.
