@@ -65,6 +65,34 @@ $("#days").multiPicker({ selector : "li" });
 * `onSelect` - called when item selected, function receive 2 arguments: selected item and it's value
 * `onUnselect` - called when item deselected, function receive 2 arguments: deselected item and it's value
 
+### Methods
+Methods are implemented in bootstrap.js style - `.multiPicker("methodname").multiPicker("anotherMethod", options)`. All methods are chainable, some of them accepts arguments.
+
+* `get` - get picker's current value, receive callback style function as an argument.
+```js
+$("days").multiPicker({ selector: 'li' }).multipicker('get', function (value) { /* value available here */ });
+```
+* `select` - select elements, receive array or string of element(s) values which should be selected.
+```js
+$("days").multiPicker({ selector: 'li' }).multipicker('select', [1, 2]);
+```
+* `unselect` - select elements, receive array or string of element(s) values which should be unselected.
+```js
+$("days").multiPicker({ selector: 'li' }).multipicker('unselect', "2");
+```
+* `disable` - disable elements, receive array or string of element(s) values which should be disabled.
+```js
+$("days").multiPicker({ selector: 'li' }).multipicker('disable', [1, 2]);
+```
+* `enable` - enable elements, receive array or string of element(s) values which should be enabled
+```js
+$("days").multiPicker({ selector: 'li' }).multipicker('enable', [1, 2]);
+```
+* `clear` - reset picker, doesn't receive any argument.
+```js
+$("days").multiPicker({ selector: 'li' }).multipicker('clear');
+```
+
 #### Usage with checkboxes and radiobuttons.
 In case when html tags like `li` or `span` used in multipicker, it will store values in hidden input, which will be a string separated by commas, like this `"Su, Mo, Fr, Sa"`.
 You should split this string on the server (on client in some cases), to store these values in database or make it possible to use them in picker in the future (for example when user wants to edit his choices).
