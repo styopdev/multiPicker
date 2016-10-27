@@ -39,7 +39,7 @@
 				picker.isPressed = false;
 				picker.mouseUpTimer = setTimeout(function () {
 					picker.isPressed = true;
-				}, 100)
+				}, 100);
 			});
 
 			this.selector.mouseleave(function (e) {
@@ -185,7 +185,7 @@
 					this.select.call(element, this, true);
 				}
 			}
-		},
+		};
 
 		this.disable = function (disableItems, isEnable) {
 			if (MultiPicker.isArray(disableItems) && disableItems.length) {
@@ -215,7 +215,7 @@
 					}
 				}
 			}
-		},
+		};
 
 		this.getElementSelector = function (searched) {
 			if (this.options.valueSource === "index" || !this.options.valueSource) {
@@ -316,15 +316,22 @@
 	};
 
 	MultiPicker.API = function (method, values, cb) {
-		this.forEach(function (picker) {
+		if (!~["select", "unselect", "enable", "disable", "clear", "get"].indexOf(method)) {
+			console.warn("Method " + method + " doesn't exist");
+			return;
+		}
+		var pickers = !MultiPicker.isArray(this) ? [this] : this;
+
+		pickers.forEach(function (picker) {
 			if (typeof values === "function") {
 				cb = values;
 			} else if (!MultiPicker.isArray(values)) {
 				values = [values];
 			}
-			if (method !== "getValue" && method != "clear") {
+			if (method !== "get" && method != "clear") {
 				if (!values) {
 					console.warn("Empty enable/disable elements");
+					return;
 				}
 			}
 			switch (method) {
@@ -365,10 +372,12 @@
 		multiPicker: function (opt, values) {
 			if (typeof opt !== "string") {
 				var pickers = [];
+				var isBulkInit = $(this).length > 1 ? true : false;
+
 				$(this).each(function(index, elem) {
 					var picker = new MultiPicker();
 					// init picker instance
-					picker.options 	= Object.assign(picker.options, opt);
+					picker.options  = Object.assign(picker.options, opt);
 					picker.selector = $(elem);
 
 					if (picker.options.selector === "checkbox" || picker.options.selector === "radio") {
@@ -464,6 +473,9 @@
 
 					if (picker.options.onInit && typeof picker.options.onInit === "function") {
 						picker.options.onInit();
+					}
+					if (isBulkInit) {
+						picker.multiPicker = MultiPicker.API;
 					}
 					pickers.push(picker);
 				});
