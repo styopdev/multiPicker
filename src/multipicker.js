@@ -377,7 +377,7 @@
 				$(this).each(function(index, elem) {
 					var picker = new MultiPicker();
 					// init picker instance
-					picker.options  = Object.assign(picker.options, opt);
+					picker.options  = $.extend(picker.options, opt);
 					picker.selector = $(elem);
 
 					if (picker.options.selector === "checkbox" || picker.options.selector === "radio") {
