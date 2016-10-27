@@ -164,6 +164,31 @@
 </tbody>
 </table>
 
+
+<h4 id="events">Events</h4>
+<ul>
+<li><code>onInit</code> - called when picker has finished initialization, doesn't receive any argument</li>
+<li><code>onSelect</code> - called when item selected, function receive 2 arguments: selected item and it's value</li>
+<li><code>onUnselect</code> - called when item deselected, function receive 2 arguments: deselected item and it's value</li>
+</ul>
+<h3 id="methods">Methods</h3>
+<p>Methods are implemented in bootstrap.js style - <code>.multiPicker(&quot;methodname&quot;).multiPicker(&quot;anotherMethod&quot;, options)</code>. All methods are chainable, some of them accepts arguments.</p>
+<ul>
+<li><p><code>get</code> - get picker's current value, receive callback style function as an argument.</p>
+<pre class="js"><code>$(&quot;#days&quot;).multiPicker({ selector: &#39;li&#39; }).multiPicker(&#39;get&#39;, function (value) { /* value available here */ });</code></pre></li>
+<li><p><code>select</code> - select elements, receive array or string of element(s) values which should be selected.</p>
+<pre class="js"><code>$(&quot;#days&quot;).multiPicker({ selector: &#39;li&#39; }).multiPicker(&#39;select&#39;, [1, 2]);</code></pre></li>
+<li><p><code>unselect</code> - select elements, receive array or string of element(s) values which should be unselected.</p>
+<pre class="js"><code>$(&quot;#days&quot;).multiPicker({ selector: &#39;li&#39; }).multiPicker(&#39;unselect&#39;, &quot;2&quot;);</code></pre></li>
+<li><p><code>disable</code> - disable elements, receive array or string of element(s) values which should be disabled.</p>
+<pre class="js"><code>$(&quot;#days&quot;).multiPicker({ selector: &#39;li&#39; }).multiPicker(&#39;disable&#39;, [1, 2]);</code></pre></li>
+<li><p><code>enable</code> - enable elements, receive array or string of element(s) values which should be enabled</p>
+<pre class="js"><code>$(&quot;#days&quot;).multiPicker({ selector: &#39;li&#39; }).multiPicker(&#39;enable&#39;, [1, 2]);</code></pre></li>
+<li><p><code>clear</code> - reset picker, doesn't receive any argument.</p>
+<pre class="js"><code>$(&quot;#days&quot;).multiPicker({ selector: &#39;li&#39; }).multiPicker(&#39;clear&#39;);</code></pre></li>
+</ul>
+
+
 <h4>
 <a id="usage-with-checkboxes-and-radiobuttons" class="anchor" href="#usage-with-checkboxes-and-radiobuttons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage with checkboxes and radiobuttons.</h4>
 
