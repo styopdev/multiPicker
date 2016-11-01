@@ -1,0 +1,70 @@
+<html>
+<head>
+	<title>Test page</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/qunit/2.0.1/qunit.min.css">
+	<link rel="stylesheet" href="../dist/multipicker.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="../dist/multipicker.min.js"></script>
+</head>
+<body>
+	<div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+
+  <ul id="days">
+		<li>Su</li>
+		<li>Mo</li>
+		<li>Tu</li>
+		<li>We</li>
+		<li>Th</li>
+		<li>Fr</li>
+		<li>Sa</li>
+	</ul>  
+
+	<ul id="prepopulate">
+		<li>Day 1</li>
+		<li>Day 2</li>
+		<li>Day 3</li>
+		<li>Day 4</li>
+		<li>Day 5</li>
+	</ul>
+
+	<ul id="single">
+		<li>Yes</li>
+		<li>No</li>
+	</ul>
+
+	<ul id="input-name-specified">
+		<li>Su</li>
+		<li>Mo</li>
+		<li>Tu</li>
+		<li>We</li>
+		<li>Th</li>
+		<li>Fr</li>
+		<li>Sa</li>
+	</ul>
+
+	<div id="languages">
+		<input type="checkbox" name="language" value="EN">
+		<input type="checkbox" name="language" value="HY">
+		<input type="checkbox" name="language" value="RU">
+		<input type="checkbox" name="language" value="EN">
+		<input type="checkbox" name="language" value="JP">
+		<input type="checkbox" name="language" value="DE">
+		<input type="checkbox" name="language" value="FR">
+	</div>
+
+	<div id="programming-languages">
+		<input type="radio" name="lang" value="C">
+		<input type="radio" name="lang" value="JS">
+		<input type="radio" name="lang" value="Swift">
+		<input type="radio" name="lang" value="Java">
+		<input type="radio" name="lang" value="C#">
+		<input type="radio" name="lang" value="C++">
+		<input type="radio" name="lang" value="PHP">
+	</div>
+
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qunit/2.0.1/qunit.min.js"></script>
+	<script src="tests.js" type="text/javascript"></script>
+</body>
+</html>
