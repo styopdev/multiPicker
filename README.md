@@ -60,7 +60,7 @@ $("#days").multiPicker({ selector : "li" });
 | selected  | empty object   | css styles (key / value js object) will be assigned to the selected elements inside of picker |
 | hover     | empty object   | css styles (key / value js object) will be assigned to the hover elements inside of picker |             |  
 
-#### Events
+### Events
 * `onInit` - called when picker has finished initialization, doesn't receive any argument
 * `onSelect` - called when item selected, function receive 2 arguments: selected item and it's value
 * `onUnselect` - called when item deselected, function receive 2 arguments: deselected item and it's value
