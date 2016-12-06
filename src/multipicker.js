@@ -21,37 +21,54 @@
 		this.isPressed = false;
 		this.lastElem  = "";
 		this.mouseUpTimer;
-		
+
 		this.setEvendHandlers = function () {
 			var picker = this;
 			this.items.click(function () {
 				picker.select.call(this, picker, false);
 			});
 
-			this.items.mousemove(function (e) {
-				if ((picker.isPressed) && picker.lastElem !== e.target) {
-					picker.hover(e);
-					picker.lastElem = e.target;
+			function mousemove (e) {
+				var target = e.target;
+				// get correct target for touch events
+				if (e.originalEvent.changedTouches && e.originalEvent.changedTouches[0]) {
+					target = document.elementFromPoint(e.originalEvent.changedTouches[0].clientX, e.originalEvent.changedTouches[0].clientY);
 				}
-			});
 
-			this.selector.mousedown(function (e) {
+				if (picker.isPressed && picker.lastElem !== target) {
+					picker.hover(target);
+					picker.lastElem = target;
+				}
+			};
+
+			function mousedown (e) {
 				picker.isPressed = false;
 				picker.mouseUpTimer = setTimeout(function () {
 					picker.isPressed = true;
 				}, 100);
-			});
+			};
 
-			this.selector.mouseleave(function (e) {
+			function mouseleave (e) {
 				picker.isPressed = false;
-			});
+			};
 
-			this.items.mouseup(this.finishHover.bind(this));
+			var mouseup = this.finishHover.bind(this);
+			// touch events
+			this.items.on("touchmove", mousemove);
+			this.items.on("touchend", mouseup);
+			this.selector.on("touchstart", mousedown);
+			this.selector.on("touchcancel", mouseleave);
+			// mouse events
+			this.items.mousemove(mousemove);
+			this.items.mouseup(mouseup);
+			this.selector.mousedown(mousedown);
+			this.selector.mouseleave(mouseleave);
 		};
 
-		this.hover = function (e) {
-			var element = $(e.target);
-			this.select.call(element, this, false);
+		this.hover = function (target) {
+			if (!$(target).hasClass("checklist")) {
+				this.select.call($(target), this, false);
+			}
 		};
 
 		this.finishHover = function (e) {
