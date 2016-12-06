@@ -39,6 +39,7 @@
 					picker.hover(target);
 					picker.lastElem = target;
 				}
+				e.preventDefault();
 			};
 
 			function mousedown (e) {
