@@ -19,7 +19,7 @@ Load the latest version of jQuery library and plugin's files from `dist` folder 
 ```
 <script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="multiPicker/dist/multipicker.min.js"></script>
-<link rel="stylesheet" href="multiPicker/dist/multipicker.min.js"></script>
+<link rel="stylesheet" href="multiPicker/dist/multipicker.min.css">
 ```
 ##### Multipicker usage basic example.
 
@@ -270,7 +270,7 @@ $("#clubs").multiPicker({
 			"font-size"    : "14px"
 		},
 		picker: {
-			"border-color" : "#ff4c4c",
+			"border-color" : "#ff4c4c"
 		}
 	}
 });
