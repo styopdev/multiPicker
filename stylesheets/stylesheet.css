@@ -467,7 +467,8 @@ header h1 {
 }
 
 header h2 {
-  width: 540px;
+  text-align: center;
+  width: 400px;
   margin-top: 0;
   margin-bottom: 0;
   font-size: 26px;
@@ -475,6 +476,12 @@ header h2 {
   line-height: 1.3;
   color: #9ddcff;
   letter-spacing: 0;
+}
+
+header iframe {
+  margin-top: 3px;
+  position: absolute;
+  margin-left: 25px;
 }
 
 .inner {
@@ -881,7 +888,7 @@ footer a:hover {
 }
 .lang-bar {
     float: right;
-    margin-right: 260px;
+    margin-right: 20%;
     margin-top: 15px;
 }
 
