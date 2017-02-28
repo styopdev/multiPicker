@@ -106,7 +106,7 @@ In case when you are using checkboxes or radiobuttons, selected items will check
     <input type="checkbox" name="lang" value="JS">
     <input type="checkbox" name="lang" value="Swift" checked="true">
     <input type="checkbox" name="lang" value="Java">
-    <input type="checkbox" name="lag" value="C#">
+    <input type="checkbox" name="lang" value="C#">
     <input type="checkbox" name="lang" value="C++" checked="true" >
     <input type="checkbox" name="lang" value="PHP">
 </div>
@@ -118,7 +118,7 @@ or single selected item for radiobuttons
     <input type="radio" name="lang" value="JS">
     <input type="radio" name="lang" value="Swift" checked="true">
     <input type="radio" name="lang" value="Java">
-    <input type="radio" name="lag" value="C#">
+    <input type="radio" name="lang" value="C#">
     <input type="radio" name="lang" value="C++">
     <input type="radio" name="lang" value="PHP">
 </div>
@@ -199,7 +199,7 @@ With vertical, quadratic and prepopulated options:
 	<input type="checkbox" name="lang" value="JS">
 	<input type="checkbox" name="lang" value="Swift">
 	<input type="checkbox" name="lang" value="Java">
-	<input type="checkbox" name="lag" value="C#">
+	<input type="checkbox" name="lang" value="C#">
 	<input type="checkbox" name="lang" value="C++">
 	<input type="checkbox" name="lang" value="PHP">
 </div>
