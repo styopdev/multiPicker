@@ -253,12 +253,13 @@
 	};
 
 	MultiPicker.updateClasses = function (item, className) {
+		var item = $(item);
 		var ny = { /* nearbyItems */
-			item: $(item),
-			next: $(item).next(),
-			prev: $(item).prev(),
-			nextNext: $(item).next().next(),
-			prevPrev: $(item).prev().prev()
+			item: item,
+			next: item.next(),
+			prev: item.prev(),
+			nextNext: item.next().next(),
+			prevPrev: item.prev().prev()
 		};
 
 		if (ny.item.hasClass(className)) {
