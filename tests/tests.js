@@ -29,7 +29,7 @@ QUnit.test("Initialization with prepopulate", function(assert) {
 			assert.ok(true, "on init");
 		}
 	});
-	assert.ok($("#prepopulate  li:eq(0)").hasClass("active") && $("#prepopulate  li:eq(1)").hasClass("active"), "Days 0, 2 have been selected");	
+	assert.ok($("#prepopulate  li:eq(0)").hasClass("active") && $("#prepopulate  li:eq(1)").hasClass("active"), "Days 0, 2 have been selected");
 	assert.ok(!$("#prepopulate li:eq(3)").hasClass("active") && !$("#prepopulate li:eq(4)").hasClass("active") && !$("#prepopulate li:eq(5)").hasClass("active"), "Days 3, 4, 5 are not selected");
 
 	assert.ok($("#prepopulate").hasClass("checklist"), "Css class `checklist` added");
@@ -122,11 +122,11 @@ QUnit.test("Api test", function(assert) {
 	});
 
 	picker.multiPicker('select', [1, 3]);
-	assert.ok($("#api-test li:eq(1)").hasClass("active") && $("#api-test li:eq(3)").hasClass("active"), "Days 1, 3 have been selected");	
+	assert.ok($("#api-test li:eq(1)").hasClass("active") && $("#api-test li:eq(3)").hasClass("active"), "Days 1, 3 have been selected");
 
 	picker.multiPicker('select', 4);
-	assert.ok($("#api-test li:eq(4)").hasClass("active"), "Day 4 has been selected");	
-	
+	assert.ok($("#api-test li:eq(4)").hasClass("active"), "Day 4 has been selected");
+
 	picker.multiPicker('unselect', 4);
 	assert.ok(!$("#api-test li:eq(4)").hasClass("active"), "Day 4 has been unselected");
 
@@ -157,7 +157,9 @@ QUnit.test("Api test", function(assert) {
 	picker.multiPicker('enable', [1, 3, 4]);
 	assert.ok(!$("#api-test li:eq(1)").attr("data-disabled") && !$("#api-test li:eq(3)").attr("data-disabled") && !$("#api-test li:eq(4)").attr("data-disabled"), "Day 1, 3, 4 have been enabled");
 });
-
+$("#api-test-radio").multiPicker({
+  selector: "radio"
+});
 
 QUnit.test("Api test checkboxes", function(assert) {
 	assert.expect(11);
@@ -167,11 +169,11 @@ QUnit.test("Api test checkboxes", function(assert) {
 	});
 
 	picker.multiPicker('select', ["EN", "RU"]);
-	assert.ok($("#api-test-checkbox span[data-value='EN']").hasClass("active") && $("#api-test-checkbox span[data-value='RU']").hasClass("active"), "Langs EN, HY have been selected");	
+	assert.ok($("#api-test-checkbox span[data-value='EN']").hasClass("active") && $("#api-test-checkbox span[data-value='RU']").hasClass("active"), "Langs EN, HY have been selected");
 
 	picker.multiPicker('select', "HY");
-	assert.ok($("#api-test-checkbox span[data-value='HY']").hasClass("active"), "Lang HY has been selected");	
-	
+	assert.ok($("#api-test-checkbox span[data-value='HY']").hasClass("active"), "Lang HY has been selected");
+
 	picker.multiPicker('unselect', "HY");
 	assert.ok(!$("#api-test-checkbox span[data-value='HY']").hasClass("active"), "Lang HY has been unselected");
 

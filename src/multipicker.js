@@ -253,46 +253,54 @@
 	};
 
 	MultiPicker.updateClasses = function (item, className) {
-		if ($(item).hasClass(className)) {
-			if ($(item).next().hasClass(className) && $(item).prev().hasClass(className)) {
-				if ($(item).next().next().hasClass(className)) {
-					$(item).next().attr('class', className + " center-side");
+		var ny = { /* nearbyItems */
+			item: $(item),
+			next: $(item).next(),
+			prev: $(item).prev(),
+			nextNext: $(item).next().next(),
+			prevPrev: $(item).prev().prev()
+		};
+
+		if (ny.item.hasClass(className)) {
+			if (ny.next.hasClass(className) && ny.prev.hasClass(className)) {
+				if (ny.nextNext.hasClass(className)) {
+					ny.next.attr('class', className + " center-side");
 				} else {
-					$(item).next().attr('class', className + " right-side");
+					ny.next.attr('class', className + " right-side");
 				}
-				if ($(item).prev().prev().hasClass(className)) {
-					$(item).prev().attr('class', className + " center-side");
+				if (ny.prevPrev.hasClass(className)) {
+					ny.prev.attr('class', className + " center-side");
 				} else {
-					$(item).prev().attr('class', className + " left-side");
+					ny.prev.attr('class', className + " left-side");
 				}
-				$(item).attr("class", "active center-side");
-			} else if ($(item).next().hasClass(className) && !$(item).prev().hasClass(className)) {
-				if ($(item).next().next().hasClass(className)) {
-					$(item).next().attr("class", className + " center-side");
+				ny.item.attr("class", "active center-side");
+			} else if (ny.next.hasClass(className) && !ny.prev.hasClass(className)) {
+				if (ny.nextNext.hasClass(className)) {
+					ny.next.attr("class", className + " center-side");
 				} else {
-					$(item).next().attr("class", className + " right-side");
+					ny.next.attr("class", className + " right-side");
 				}
-				$(item).attr("class", "active left-side");
-			} else if (!$(item).next().hasClass(className) && $(item).prev().hasClass(className)) {
-				if ($(item).prev().prev().hasClass(className)) {
-					$(item).prev().attr("class", className + " center-side");
+				ny.item.attr("class", "active left-side");
+			} else if (!ny.next.hasClass(className) && ny.prev.hasClass(className)) {
+				if (ny.prevPrev.hasClass(className)) {
+					ny.prev.attr("class", className + " center-side");
 				} else {
-					$(item).prev().attr("class", className + " left-side");
+					ny.prev.attr("class", className + " left-side");
 				}
-				$(item).attr("class", className + " right-side");
+				ny.item.attr("class", className + " right-side");
 			}
 		} else {
-			if ($(item).next().hasClass("right-side")) {
-				$(item).next().attr("class", className);
+			if (ny.next.hasClass("right-side")) {
+				ny.next.attr("class", className);
 			}
-			if ($(item).prev().hasClass("left-side")) {
-				$(item).prev().attr("class", className);
+			if (ny.prev.hasClass("left-side")) {
+				ny.prev.attr("class", className);
 			}
-			if ($(item).prev().hasClass("center-side")) {
-				$(item).prev().attr("class", className + " right-side");
+			if (ny.prev.hasClass("center-side")) {
+				ny.prev.attr("class", className + " right-side");
 			}
-			if ($(item).next().hasClass("center-side")) {
-				$(item).next().attr("class", className + " left-side");
+			if (ny.next.hasClass("center-side")) {
+				ny.next.attr("class", className + " left-side");
 			}
 		}
 	};
