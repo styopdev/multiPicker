@@ -40,6 +40,8 @@ $("#days").multiPicker({ selector : "li" });
 ```
 ![Multipicker usage basic example](https://cloud.githubusercontent.com/assets/6073745/15856615/b172e880-2cc7-11e6-8402-1b739f005c08.gif)
 
+![Repository files' structure](https://user-images.githubusercontent.com/6073745/60943444-1f769e00-a2f7-11e9-861c-259c0a6a068f.jpeg)
+
 ### Options
 * `selector` (required) - element type used inside of picker (html tag like `li` / `span` / `i`, `checkbox` / `radio` - for input type `checkbox` / `radio`)
 * `inputName` - name of input where checked values will be stored. Plugin will create new one if input does not exist on the page (only for non checkbox / radio elements). If `inputName` doesn't specified, picker container's id will be used for input name. For avoiding conflict strongly recommend to provide valid, unique name.
