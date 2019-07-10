@@ -40,6 +40,8 @@ $("#days").multiPicker({ selector : "li" });
 ```
 ![Multipicker usage basic example](https://cloud.githubusercontent.com/assets/6073745/15856615/b172e880-2cc7-11e6-8402-1b739f005c08.gif)
 
+#### Repository files' structure
+
 ![Repository files' structure](https://user-images.githubusercontent.com/6073745/60943444-1f769e00-a2f7-11e9-861c-259c0a6a068f.jpeg)
 
 ### Options
